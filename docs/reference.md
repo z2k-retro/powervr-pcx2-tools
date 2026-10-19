@@ -204,7 +204,7 @@ The emulator draws PCX2 frames with the SABRE (ISP) and TEXAS (TSP) software mod
 
 ## Behaviour found with game frames
 
-Six behaviours differ from the Imagination simulator or were missing from it; each was found by drawing 86Box frame dumps on the m3D and fixing the renderer until every pixel matched.
+Seven behaviours differ from the Imagination simulator or were missing from it; each was found by drawing 86Box frame dumps on the m3D and fixing the renderer until every pixel matched.
 
 | Behaviour | What the m3D does | Found with |
 | --- | --- | --- |
@@ -214,6 +214,7 @@ Six behaviours differ from the Imagination simulator or were missing from it; ea
 | Mip chain offset | A mip-mapped texture's chain starts one pixel in: the 1×1 level is the second pixel of the first word, and every larger level follows it. The simulator's offsets are one pixel short. | Ultim@te Race |
 | Fog enable | `FOGCOL` bit 24 turns fog on; with it clear no pixel is fogged, whatever the TSP flags say. | Ultim@te Race |
 | Adaptive bilinear | `BILINEAR` = 1 filters bilinearly on the two finest mip steps (the simulator's level estimate below 2) and blends between mip levels beyond that. | Ultim@te Race |
+| Right clip | With `XCLIP` bit 28 set, columns from bits 25:16 onward are not written, so with the drivers' width + 1 the chip writes one column past the scene. The renderer had stopped one column earlier. | MDK |
 
 ## Games compared on the m3D
 
@@ -228,6 +229,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | Ultim@te Race | Direct3D | 3 + 16 register variants | 0 | First game with fog and mip-maps |
 | Quake timedemo | PowerVR port | session run | 0 | Reported by Zvi, 2026-10-18 |
 | Unreal castle flyby | Direct3D | 3 | 2, 0, 1 |  |
+| MDK | Direct3D | 3 + 15 register variants | 0 | 600-pixel 3D view beside the 2D panel; found the right-clip rule |
 
 Tomb Raider and the Hexen II demo looked correct in 86Box but were not compared on the card. Terracide shows minor flicker, not yet captured. POD crashes on launch and MechWarrior 2 (PowerVR patch, needs the Windows 95 version) has not reached the renderer.
 

@@ -63,6 +63,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Ultim@te Race | Compared on the card: exact | Fog and mip-mapping |
 | Quake (PowerVR) timedemo | Compared on the card: exact | |
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
+| MDK | Compared on the card: exact | |
 | Tomb Raider, Hexen II demo | Look right | Not yet compared |
 | Terracide | Minor flicker | Not yet captured |
 | POD | Crashes at launch | Probably the game |

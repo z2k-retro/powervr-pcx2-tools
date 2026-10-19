@@ -7,10 +7,10 @@ The PCX2 has no frame buffer of its own. It finishes each tile on chip, then wri
 - `SOFADDR` (0x13) is the physical address of pixel (0, 0); `LSTRIDE` (0x12) is the line pitch in bytes.
 - Pixel (x, y) is written at `SOFADDR + y × LSTRIDE + x × bytes_per_pixel`.
 - `XCLIP` (0x14) limits the columns written:
-  - with bit 12 set, columns x < (bits 9:0) − 1 are not written;
-  - with bit 28 set, columns x ≥ (bits 25:16) − 1 are not written.
+  - with bit 28 set, columns x ≥ (bits 25:16) are not written. Measured: MDK sets `XCLIP` = 0x12590000 (right limit 601) for its 600-pixel 3D view, and the m3D writes column 600 but not 601. The drivers write the render width + 1 (`pvrd.c`, `sgllite.c`), so the chip always writes one column past the scene.
+  - with bit 12 set, columns to the left of (bits 9:0) are not written. No driver sets it, and the exact limit has not been measured; the renderer leaves out x < (bits 9:0) − 1.
 
-  The drivers write 0x12810000 at 640×480, so the right limit is 641.
+  At 640×480 the drivers write 0x12810000, a right limit of 641, beyond the frame.
 
 ## Masking plane
 
