@@ -65,6 +65,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
 | MDK | Compared on the card: exact | |
 | Tomb Raider, Hexen II demo | Look right | Not yet compared |
+| Quake II | Runs well | Smooth on a Core Ultra 7 270K; not yet compared |
 | Terracide | Minor flicker | Not yet captured |
 | POD | Crashes at launch | Probably the game |
 | MechWarrior 2 (PowerVR patch) | Not working yet | Needs the Windows 95 version of MechWarrior 2 |
