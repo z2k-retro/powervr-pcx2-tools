@@ -63,9 +63,9 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Ultim@te Race | Compared on the card: exact | Fog and mip-mapping |
 | Quake (PowerVR) timedemo | Compared on the card: exact | |
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
+| Quake II | Compared on the card: 1 pixel | Needs a fast host: smooth on a Core Ultra 7 270K, slow on an i7-3960X. The card itself takes about 37 ms per frame here |
 | MDK | Compared on the card: exact | |
 | Tomb Raider, Hexen II demo | Look right | Not yet compared |
-| Quake II | Runs well | Smooth on a Core Ultra 7 270K; not yet compared |
 | Terracide | Minor flicker | Not yet captured |
 | POD | Crashes at launch | Probably the game |
 | MechWarrior 2 (PowerVR patch) | Not working yet | Needs the Windows 95 version of MechWarrior 2 |
