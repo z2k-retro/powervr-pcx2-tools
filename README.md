@@ -2,12 +2,15 @@
 
 Tools and documentation for the **PowerVR Series 1 PCX2**, the 3D chip on the Matrox m3D and VideoLogic Apocalypse 3Dx (1997). They were made to build and verify the PCX2 emulation in [86Box](https://86box.net), developed on the [`powervr-pcx` branch of z2k-retro/86Box](https://github.com/z2k-retro/86Box/tree/powervr-pcx). With them, a real card can be measured, its driver traced, and emulator output compared with the card pixel for pixel.
 
+**Just want to try it?** See [Using the PCX2 emulation in 86Box](docs/using-86box.md): downloads, setup, settings, speed and a compatibility list.
+
 That emulation now matches a real m3D to within a few pixels per 640×480 frame on every game captured so far, including Moto Racer, Shadows of the Empire, Ultim@te Race, Quake and Unreal. The full list is in [the reference](docs/reference.md#games-compared-on-the-m3d).
 
 ## What's here
 
 | Path | What it is | Needs a card? |
 | --- | --- | --- |
+| [`docs/using-86box.md`](docs/using-86box.md) | User guide to the 86Box emulation | No |
 | [`docs/`](docs/README.md) | Technical reference: registers, scene and texture formats, output, measured behaviour, ROM tables, procedures | — |
 | `renderer/` | The PCX2 renderer (hidden-surface removal and texturing), the same code as the 86Box device; no 86Box dependencies | No |
 | `tools/pcxsim.c` | Renders a captured frame in software and compares it with the card's output | No |
@@ -17,6 +20,15 @@ That emulation now matches a real m3D to within a few pixels per 640×480 frame 
 | `scripts/pcx2session.sh` | Runs `pcx2play` over a folder of dumps and register variants, and zips the results | Yes (VFIO) |
 | `scripts/win98vm.sh` | Windows 98 VM under QEMU with the card passed through, logging every access | Yes (VFIO) |
 | `scripts/build86box-pcx.sh` | Builds 86Box from the `powervr-pcx` branch | No |
+
+## No card? You can still help
+
+- **Play games in the 86Box build** and report what looks wrong, with a screenshot and the log. The [user guide](docs/using-86box.md#reporting-a-problem) says what to include.
+- **Capture frames.** The 86Box device can dump the complete input of a frame (Appendix G). Anyone with a card can then draw your frame on real hardware and show whether the emulation or the game is at fault. Dumps contain the game's textures, so share them privately.
+- **Work on the renderer without hardware.** `pcxsim` renders dumps and compares them with a card's output. The renderer is plain C with no 86Box dependencies, and every behaviour it models is described in the [reference](docs/README.md).
+- **Card owners**: `pcx2dump` and `scripts/pcx2session.sh` (Appendix H) take a few minutes and would be especially useful for a PCX1 (Apocalypse 3D) or any board other than the Matrox m3D.
+
+Open questions are listed at the end of the [reference](docs/reference.md#open-questions-for-emulation).
 
 ## Building
 

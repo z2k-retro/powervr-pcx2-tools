@@ -6,6 +6,9 @@ What a PowerVR Series 1 PCX2 (as on the Matrox m3D) does, and how its Windows dr
 - static analysis of the 4.x drivers;
 - measurement on a real m3D with the tools in this repository.
 
+## Documents
+
+- **[using-86box.md](using-86box.md)**: user guide to the 86Box emulation (setup, settings, speed, compatibility, reporting problems).
 - **[reference.md](reference.md)** — the main document:
   - the driver stack, board start-up, the per-frame sequence and the end-of-render interrupt;
   - the memory model, fog and documented rendering behaviour;
