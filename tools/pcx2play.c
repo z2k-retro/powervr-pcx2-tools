@@ -333,6 +333,13 @@ main(int argc, char **argv)
         out("%s: unexpected layout\n", dumpfn);
         return 1;
     }
+    if (pages == 0) {
+        /* Nothing to draw: the dump holds no scene. 86Box builds before
+           pcx-v0.2 wrote such dumps for the DOS SGL driver, which sets
+           up the TLB once rather than every frame. */
+        out("%s: no scene data in this dump (0 TLB pages); skipped, nothing compared\n", dumpfn);
+        return 1;
+    }
 
     /* Apply overrides. */
     for (int i = 0; i < nset; i++)

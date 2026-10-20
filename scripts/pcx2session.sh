@@ -28,7 +28,7 @@ make -C "$ROOT" bin/pcx2play >/dev/null
 mkdir -p "$OUT"
 cp "$DUMPS"/frame_*.bin "$OUT"/ 2>/dev/null || true
 
-play() { sudo "$ROOT/bin/pcx2play" --dev "$PCXDEV" --out "$OUT" "$@"; }
+play() { sudo "$ROOT/bin/pcx2play" --dev "$PCXDEV" --out "$OUT" "$@" || true; }
 
 FIRST="$(ls "$DUMPS"/frame_*.bin | head -1)"
 
@@ -56,6 +56,6 @@ play --name camera-0x200        --set PACKMODE=0x02 --set CAMERA=0x200 "$FIRST"
 
 sudo chown -R "$USER" "$OUT"
 echo
-grep -E "^== |rendered in|NO end|differ" "$OUT/report.txt"
+grep -E "^== |rendered in|NO end|differ|skipped" "$OUT/report.txt"
 echo
 bash "$ROOT/scripts/pcx2pack.sh" "$OUT"
