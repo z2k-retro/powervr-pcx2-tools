@@ -67,6 +67,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | MDK | Compared on the card: exact | |
 | MoonRacer | Compared on the card: exact | Shadow and light volumes in every frame |
 | Winter Race 3D (demo) | Compared on the card: exact | |
+| Sub Culture | Compared on the card: 0–1 pixels | |
 | Wipeout XL | Compared on the card: 0–1 pixels | |
 | PureVex | Compared on the card: exact | Uses the card's adaptive bilinear filtering |
 | MechWarrior 2 (PowerVR patch) | Compared on the card: exact | The patch is for the Windows 95 version; it does not run with the DOS version |
