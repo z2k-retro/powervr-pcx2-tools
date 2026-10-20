@@ -63,6 +63,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Ultim@te Race | Compared on the card: exact | Fog and mip-mapping |
 | Quake (PowerVR) timedemo | Compared on the card: exact | |
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
+| GLQuake (PowerVR minigl) | Compared on the card: exact | Busiest scenes tested; the card takes about 44 ms per frame |
 | Quake II | Compared on the card: 1 pixel | Needs a fast host: smooth on a Core Ultra 7 270K, slow on an i7-3960X. The card itself takes about 37 ms per frame here |
 | MDK | Compared on the card: exact | |
 | MoonRacer | Compared on the card: exact | Shadow and light volumes in every frame |

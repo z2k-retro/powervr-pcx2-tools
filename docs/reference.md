@@ -229,6 +229,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | Ultim@te Race | Direct3D | 3 + 16 register variants | 0 | First game with fog and mip-maps |
 | Quake timedemo | PowerVR port | session run | 0 | Reported by Zvi, 2026-10-18 |
 | Unreal castle flyby | Direct3D | 3 | 2, 0, 1 |  |
+| GLQuake (timedemo 1) | PowerVR minigl | 3 + 15 register variants | 0 | Busiest scene so far: about 580,000 shaded pixels per frame from lightmap passes; the card takes 43–45 ms |
 | Quake II | PowerVR port (the game's PowerVR option) | 3 + 15 register variants | 1 | One pixel one shade brighter, a rounding difference; the card takes about 37 ms per frame |
 | MechWarrior 2 (PowerVR patch) | SGL | 3 + 15 register variants | 0 | Windows 95 version; fog on (`FOGAMOUNT` 5) and `CAMERA` 0x13F |
 | MoonRacer | SGL | 9 + 15 register variants | 0 | First game with shadow and light volumes throughout; `CAMERA` 0x1E0 |
