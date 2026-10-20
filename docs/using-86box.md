@@ -58,7 +58,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Software | Status | Notes |
 | --- | --- | --- |
 | SGL demos (SGLTri, logo) | Compared on the card: exact | |
-| Moto Racer (demo) | Compared on the card: 0–13 pixels differ; exact at 512×384 | The demo is slow at 640×480 on real hardware too |
+| Moto Racer (demo) | Compared on the card: 0–13 pixels differ; exact at 512×384, 0–2 at 640×400 | The demo is slow at 640×480 on real hardware too |
 | Shadows of the Empire | Compared on the card: 0–5 pixels | The "Hardware Assessment" warning at start-up comes from the Matrox driver's capabilities and appears on a real m3D too. Menu seams and dim text are on the real card as well. |
 | Ultim@te Race | Compared on the card: exact | Fog and mip-mapping |
 | Quake (PowerVR) timedemo | Compared on the card: exact | |
@@ -79,7 +79,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 Not yet seen in any game captured so far, so not yet checked against the card:
 
 - textures mirrored in v with bilinear filtering (8-bit textures and every other mirroring case match the card in edited frames; no game seen so far uses either);
-- 320×240 and resolutions above 640×480 (512×384 matches), and windowed Direct3D;
+- 320×240 and resolutions above 640×480 (512×384 and 640×400 match), and windowed Direct3D;
 - bilinear modes other than the adaptive one PureVex uses (the others were tested only by changing the register);
 - scenes too large for one pass, which the drivers split into several renders;
 - the `FASTFOG` mode.
