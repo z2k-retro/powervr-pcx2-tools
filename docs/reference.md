@@ -231,8 +231,10 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | Unreal castle flyby | Direct3D | 3 | 2, 0, 1 |  |
 | Quake II | PowerVR port (the game's PowerVR option) | 3 + 15 register variants | 1 | One pixel one shade brighter, a rounding difference; the card takes about 37 ms per frame |
 | MechWarrior 2 (PowerVR patch) | SGL | 3 + 15 register variants | 0 | Windows 95 version; fog on (`FOGAMOUNT` 5) and `CAMERA` 0x13F |
-| MoonRacer | SGL | 9 in 3 sessions + 15 register variants each | 0 | First game with shadow and light volumes throughout; `CAMERA` 0x1E0 |
-| Winter Race 3D demo | SGL | 6 + 15 register variants | 0 | Gouraud and flat-highlight shading, translucency |
+| MoonRacer | SGL | 9 + 15 register variants | 0 | First game with shadow and light volumes throughout; `CAMERA` 0x1E0 |
+| Winter Race 3D demo | SGL | 3 | 0 | Gouraud and flat-highlight shading, translucency |
+| Wipeout XL | not recorded | 3 | 0 to 1 | Drawn without dither (`PACKMODE` 0x02) |
+| PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |
 | MDK | Direct3D | 3 + 15 register variants | 0 | 600-pixel 3D view beside the 2D panel; found the right-clip rule |
 
 Tomb Raider and the Hexen II demo looked correct in 86Box but were not compared on the card. Terracide shows minor flicker, not yet captured. POD crashes on launch.

@@ -67,6 +67,8 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | MDK | Compared on the card: exact | |
 | MoonRacer | Compared on the card: exact | Shadow and light volumes in every frame |
 | Winter Race 3D (demo) | Compared on the card: exact | |
+| Wipeout XL | Compared on the card: 0–1 pixels | |
+| PureVex | Compared on the card: exact | Uses the card's adaptive bilinear filtering |
 | MechWarrior 2 (PowerVR patch) | Compared on the card: exact | The patch is for the Windows 95 version; it does not run with the DOS version |
 | Tomb Raider, Hexen II demo | Look right | Not yet compared |
 | Terracide | Minor flicker | Not yet captured |
@@ -76,7 +78,7 @@ Not yet seen in any game captured so far, so not yet checked against the card:
 
 - 8-bit (332) textures and flipped (mirrored) texture coordinates;
 - resolutions other than 640×480, and windowed Direct3D;
-- bilinear filtering switched on by the game or the driver (games so far left `BILINEAR` at 0; the other modes were tested by changing the register);
+- bilinear modes other than the adaptive one PureVex uses (the others were tested only by changing the register);
 - scenes too large for one pass, which the drivers split into several renders;
 - the `FASTFOG` mode.
 
