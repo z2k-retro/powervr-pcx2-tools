@@ -248,7 +248,9 @@ For features no captured game uses, real frames were edited (texture settings ch
 | --- | --- |
 | 8-bit (332) textures, set up as SGL creates them | Exact, with every filter mode, output format and fog setting |
 | Mirrored textures, bilinear off | Exact in u, v and both |
-| Mirrored textures with bilinear filtering | Not yet matched |
+| Mirrored textures, between mip levels (`BILINEAR` = 3) | Exact |
+| Mirrored in u, bilinear filtering | Exact (10 pixels): the filter weight is inverted along with the coordinate |
+| Mirrored in v, bilinear filtering | Not yet matched; the u rule does not carry over |
 | A texture without mip-maps whose mip level field is non-zero | Differs where the level is 2 or more. No driver writes this combination |
 | An 8-bit texture with the 4444 flag set | The card draws white. No driver writes this combination |
 

@@ -77,7 +77,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 
 Not yet seen in any game captured so far, so not yet checked against the card:
 
-- mirrored textures with bilinear filtering (8-bit textures, and mirroring without filtering, match the card in edited frames; no game seen so far uses either);
+- textures mirrored in v with bilinear filtering (8-bit textures and every other mirroring case match the card in edited frames; no game seen so far uses either);
 - resolutions other than 640×480, and windowed Direct3D;
 - bilinear modes other than the adaptive one PureVex uses (the others were tested only by changing the register);
 - scenes too large for one pass, which the drivers split into several renders;
