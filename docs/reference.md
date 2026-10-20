@@ -184,7 +184,7 @@ The end-of-render interrupt is level-triggered and cleared by reading `INTSTATUS
 
 - **Render:** the 640×480 frame finished 7.6 ms after `STARTRENDER`. The card drew SGLTri's blue triangle (pixel 0x001F, RGB565) at the position the demo's source gives: apex (320, 140), base from (220, 273) to (420, 273).
 - **Interrupt:** the line stays asserted until acknowledged. Unmasking without touching the card fires it again.
-- **Acknowledge:** the first read of `INTSTATUS` returns 0x00000007 and the second returns 0; the line then stays quiet. Bits 0 and 2 are not named in any driver. In one of about 400 card renders so far (a Tomb Raider frame) the first read returned 0x6, with bit 0 clear; drivers only test bit 1.
+- **Acknowledge:** the first read of `INTSTATUS` returns 0x00000007 and the second returns 0; the line then stays quiet. Bits 0 and 2 are not named in any driver. In two of about 420 card renders so far (Tomb Raider, and Moto Racer at 512×384) the first read returned 0x6, with bit 0 clear; drivers only test bit 1.
 - **Test vector:** the trace, the 16 MB memory image and the card's frame together make a complete real frame for checking the emulator.
 
 ## Rendering model
@@ -224,7 +224,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | --- | --- | --- | --- | --- |
 | SGLTri (SDK demo) | SGL | 1, traced from a VM | 0 | First replay of a real driver frame |
 | SGL logo demo | SGL | 3 + 13 register variants | 0, 1, 0 | All output formats, dither, filters, `CAMERA` |
-| Moto Racer demo | Direct3D | 6 | 0 to 13 | 13 in one frame, distant scenery |
+| Moto Racer demo | Direct3D | 6 at 640×480; 3 + 15 register variants at 512×384 | 0 to 13; 0 at 512×384 | 13 in one frame, distant scenery. First resolution below 640×480 (`XCLIP` right limit 513) |
 | Shadows of the Empire | Direct3D | 3 in game, 3 menu | 0 to 1 in game, 5 menu | Menu seams and dim text are on the card too |
 | Ultim@te Race | Direct3D | 3 + 16 register variants | 0 | First game with fog and mip-maps |
 | Quake timedemo | PowerVR port | session run | 0 | Reported by Zvi, 2026-10-18 |
