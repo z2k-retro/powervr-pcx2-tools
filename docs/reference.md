@@ -240,6 +240,18 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 
 Tomb Raider and the Hexen II demo looked correct in 86Box but were not compared on the card. Terracide shows minor flicker, not yet captured. POD crashes on launch.
 
+### Edited frames
+
+For features no captured game uses, real frames were edited (texture settings changed in the TSP words, texture data untouched) and drawn on the card:
+
+| Feature | Result |
+| --- | --- |
+| 8-bit (332) textures, set up as SGL creates them | Exact, with every filter mode, output format and fog setting |
+| Mirrored textures, bilinear off | Exact in u, v and both |
+| Mirrored textures with bilinear filtering | Not yet matched |
+| A texture without mip-maps whose mip level field is non-zero | Differs where the level is 2 or more. No driver writes this combination |
+| An 8-bit texture with the 4444 flag set | The card draws white. No driver writes this combination |
+
 ## Open questions for emulation
 
 - [x] What `REVISION` on the Matrox m3D: 1 (PCX2_002), read from the card 2026-10-17.
