@@ -230,9 +230,10 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | Quake timedemo | PowerVR port | session run | 0 | Reported by Zvi, 2026-10-18 |
 | Unreal castle flyby | Direct3D | 3 | 2, 0, 1 |  |
 | Quake II | PowerVR port (the game's PowerVR option) | 3 + 15 register variants | 1 | One pixel one shade brighter, a rounding difference; the card takes about 37 ms per frame |
+| MechWarrior 2 (PowerVR patch) | SGL | 3 + 15 register variants | 0 | Windows 95 version; fog on (`FOGAMOUNT` 5) and `CAMERA` 0x13F |
 | MDK | Direct3D | 3 + 15 register variants | 0 | 600-pixel 3D view beside the 2D panel; found the right-clip rule |
 
-Tomb Raider and the Hexen II demo looked correct in 86Box but were not compared on the card. Terracide shows minor flicker, not yet captured. POD crashes on launch and MechWarrior 2 (PowerVR patch, needs the Windows 95 version) has not reached the renderer.
+Tomb Raider and the Hexen II demo looked correct in 86Box but were not compared on the card. Terracide shows minor flicker, not yet captured. POD crashes on launch.
 
 ## Open questions for emulation
 

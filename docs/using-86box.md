@@ -65,12 +65,19 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
 | Quake II | Compared on the card: 1 pixel | Needs a fast host: smooth on a Core Ultra 7 270K, slow on an i7-3960X. The card itself takes about 37 ms per frame here |
 | MDK | Compared on the card: exact | |
+| MechWarrior 2 (PowerVR patch) | Compared on the card: exact | The patch is for the Windows 95 version; it does not run with the DOS version |
 | Tomb Raider, Hexen II demo | Look right | Not yet compared |
 | Terracide | Minor flicker | Not yet captured |
 | POD | Crashes at launch | Probably the game |
-| MechWarrior 2 (PowerVR patch) | Not working yet | Needs the Windows 95 version of MechWarrior 2 |
 
-Not yet tested: shadow volumes and light volumes, and the `FASTFOG` mode.
+Not yet seen in any game captured so far, so not yet checked against the card:
+
+- light volumes, and shadow volumes beyond the one case in Ultim@te Race;
+- 8-bit (332) textures and flipped (mirrored) texture coordinates;
+- resolutions other than 640×480, and windowed Direct3D;
+- bilinear filtering switched on by the game or the driver (games so far left `BILINEAR` at 0; the other modes were tested by changing the register);
+- scenes too large for one pass, which the drivers split into several renders;
+- the `FASTFOG` mode.
 
 ## Known limitations
 
