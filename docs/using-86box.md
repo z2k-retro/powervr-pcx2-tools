@@ -71,7 +71,8 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Wipeout XL | Compared on the card: 0–1 pixels | |
 | PureVex | Compared on the card: exact | Uses the card's adaptive bilinear filtering |
 | MechWarrior 2 (PowerVR patch) | Compared on the card: exact | The patch is for the Windows 95 version; it does not run with the DOS version |
-| Tomb Raider, Hexen II demo | Look right | Not yet compared |
+| Tomb Raider (DOS PowerVR demo) | Compared on the card: 0–3 pixels | Uses PowerVR's DOS driver; needs a build from after pcx-v0.1 for frame dumps |
+| Hexen II demo | Looks right | Not yet compared |
 | Terracide | Minor flicker | Not yet captured |
 | POD | Crashes at launch | Probably the game |
 

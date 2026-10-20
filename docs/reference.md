@@ -184,7 +184,7 @@ The end-of-render interrupt is level-triggered and cleared by reading `INTSTATUS
 
 - **Render:** the 640×480 frame finished 7.6 ms after `STARTRENDER`. The card drew SGLTri's blue triangle (pixel 0x001F, RGB565) at the position the demo's source gives: apex (320, 140), base from (220, 273) to (420, 273).
 - **Interrupt:** the line stays asserted until acknowledged. Unmasking without touching the card fires it again.
-- **Acknowledge:** the first read of `INTSTATUS` returns 0x00000007 and the second returns 0; the line then stays quiet. Bits 0 and 2 are not named in any driver.
+- **Acknowledge:** the first read of `INTSTATUS` returns 0x00000007 and the second returns 0; the line then stays quiet. Bits 0 and 2 are not named in any driver. In one of about 400 card renders so far (a Tomb Raider frame) the first read returned 0x6, with bit 0 clear; drivers only test bit 1.
 - **Test vector:** the trace, the 16 MB memory image and the card's frame together make a complete real frame for checking the emulator.
 
 ## Rendering model
@@ -233,12 +233,17 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | MechWarrior 2 (PowerVR patch) | SGL | 3 + 15 register variants | 0 | Windows 95 version; fog on (`FOGAMOUNT` 5) and `CAMERA` 0x13F |
 | MoonRacer | SGL | 9 + 15 register variants | 0 | First game with shadow and light volumes throughout; `CAMERA` 0x1E0 |
 | Winter Race 3D demo | SGL | 3 | 0 | Gouraud and flat-highlight shading, translucency |
+| Tomb Raider demo (DOS) | SGL, DOS driver | 3 + 15 register variants | 0 to 3 | Adaptive bilinear with mip-maps and fog; see below |
 | Sub Culture | not recorded | 3 | 0 to 1 | Dark blue fog (`FOGAMOUNT` 16); right clip at 643 with tiles to x = 671 |
 | Wipeout XL | not recorded | 3 | 0 to 1 | Drawn without dither (`PACKMODE` 0x02) |
 | PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |
 | MDK | Direct3D | 3 + 15 register variants | 0 | 600-pixel 3D view beside the 2D panel; found the right-clip rule |
 
 Tomb Raider and the Hexen II demo looked correct in 86Box but were not compared on the card. Terracide shows minor flicker, not yet captured. POD crashes on launch.
+
+### The DOS driver
+
+PowerVR's DOS SGL driver, as used by the Tomb Raider demo, differs from the Windows drivers in two ways seen in its frames: it writes the 128 TLB entries once at start-up rather than before every frame, and it alternates `OBJECT_OFFSET` between 0x180001 and 0x100001 from frame to frame (double-buffered region data). The chip handles both the same way; 86Box dumps before pcx-v0.2 missed the scene for the first reason (Appendix G).
 
 ### Edited frames
 
