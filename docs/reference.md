@@ -224,7 +224,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | --- | --- | --- | --- | --- |
 | SGLTri (SDK demo) | SGL | 1, traced from a VM | 0 | First replay of a real driver frame |
 | SGL logo demo | SGL | 3 + 13 register variants | 0, 1, 0 | All output formats, dither, filters, `CAMERA` |
-| Moto Racer demo | Direct3D | 6 at 640×480; 3 + 15 register variants each at 512×384 and 640×400 | 0 to 13; 0 at 512×384; 0 to 2 at 640×400 | 13 in one frame, distant scenery. 512×384 is 16×12 whole tiles (`XCLIP` right limit 513); 640×400 ends in a half-height row of tiles, which matches too. The few differing pixels are single pixels on polygon edges mid-screen |
+| Moto Racer demo | Direct3D | 6 at 640×480; 3 + 15 register variants each at 512×384, 640×400 and split screen | 0 to 13; 0 at 512×384; 0 to 2 at 640×400; 0 to 7 split screen | 13 in one frame, distant scenery. 512×384 is 16×12 whole tiles (`XCLIP` right limit 513); 640×400 ends in a half-height row of tiles, which matches too. The few differing pixels are single pixels on polygon edges mid-screen. Split screen draws each player's view as its own 320×400 frame (`LSTRIDE` 640, `XCLIP` right limit 321) into two buffers in turn, which the game then places side by side |
 | Shadows of the Empire | Direct3D | 3 in game, 3 menu | 0 to 1 in game, 5 menu | Menu seams and dim text are on the card too |
 | Ultim@te Race | Direct3D | 3 + 16 register variants | 0 | First game with fog and mip-maps |
 | Quake timedemo | PowerVR port | session run | 0 | Reported by Zvi, 2026-10-18 |
