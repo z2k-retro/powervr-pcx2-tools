@@ -50,13 +50,15 @@ In the PowerVR device settings, set **Dump N frames** and **Start dumping at fra
 bash scripts/pcx2session.sh ~/86box-pcx-vms/win98-pcx/powervr_dumps
 ```
 
-For each dump, the card draws the frame as captured, and then the first frame again with one register changed at a time (output formats, dither, filter modes, fog settings, `CAMERA`, `PREC_BASE`). The renderer draws the same input, and the script writes a folder and a zip with:
+For each dump, the card draws the frame as captured, and then the first frame again with one register changed at a time (output formats, dither, filter modes, fog settings, `CAMERA`, `PREC_BASE`). The renderer draws the same input, and the script writes a folder with:
 
 - `NAME-card.ppm`, `NAME-emu.ppm` and `NAME-diff.ppm` (white where they differ);
 - `NAME-card.raw`, the card's frame;
 - `report.txt`, with render times, `INTSTATUS` and the count of differing pixels.
 
 Before drawing, `pcx2play` fills the frame with 0xA5A5, so pixels the card did not write are easy to spot.
+
+To share the results, the script then runs `scripts/pcx2pack.sh`, which packs `report.txt`, the `.raw` files and the dumps into one `pcx2session-DATE.tar.gz` (the pictures can be regenerated from those). Some chat apps open `.zip` attachments and count each file inside against a per-message limit; a `.tar.gz` goes as one file. `ZIP_PARTS=19 bash scripts/pcx2pack.sh FOLDER` instead makes zips of at most 19 files, to send one per message.
 
 ## 6. Investigate offline: `pcxsim`
 

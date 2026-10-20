@@ -17,7 +17,7 @@ That emulation now matches a real m3D to within a few pixels per 640×480 frame 
 | `tools/pcx2dump.c` | Reads a card: PCI config, power-on registers, implemented register bits, texture-memory test | Yes |
 | `tools/pcx2replay.c` | Replays a frame traced from the Windows driver on the card, with no VM | Yes (VFIO) |
 | `tools/pcx2play.c` | Draws an 86Box frame dump on the card and compares it with the renderer | Yes (VFIO) |
-| `scripts/pcx2session.sh` | Runs `pcx2play` over a folder of dumps and register variants, and zips the results | Yes (VFIO) |
+| `scripts/pcx2session.sh` | Runs `pcx2play` over a folder of dumps and register variants, and packs the results to send | Yes (VFIO) |
 | `scripts/win98vm.sh` | Windows 98 VM under QEMU with the card passed through, logging every access | Yes (VFIO) |
 | `scripts/build86box-pcx.sh` | Builds 86Box from the `powervr-pcx` branch | No |
 

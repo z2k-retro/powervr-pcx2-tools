@@ -7,7 +7,8 @@
 #   bash pcx2session.sh [DUMP_FOLDER]
 #
 # DUMP_FOLDER defaults to the 86Box VM's powervr_dumps folder. Results go to
-# pcx2session-DATE/ and pcx2session-DATE.zip (send the zip).
+# pcx2session-DATE/ and pcx2session-DATE.tar.gz (send that file; see
+# pcx2pack.sh to repack a folder or split it into small zips).
 
 set -e
 PCXDEV="${PCXDEV:-$(lspci -D -n -d 1033:0046 2>/dev/null | head -1 | cut -d" " -f1)}"
@@ -54,8 +55,7 @@ play --name prec-base-0x100     --set PACKMODE=0x02 --set PREC_BASE=0x100 "$FIRS
 play --name camera-0x200        --set PACKMODE=0x02 --set CAMERA=0x200 "$FIRST"
 
 sudo chown -R "$USER" "$OUT"
-zip -qr "$OUT.zip" "$OUT"
 echo
 grep -E "^== |rendered in|NO end|differ" "$OUT/report.txt"
 echo
-echo "Done. Please send $OUT.zip"
+bash "$ROOT/scripts/pcx2pack.sh" "$OUT"
