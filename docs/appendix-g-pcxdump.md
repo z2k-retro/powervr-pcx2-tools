@@ -23,7 +23,7 @@ All fields are little-endian.
 | 12 | uint32 | frame | Frame number (STARTRENDER count since 86Box started) |
 | 16 | uint32 | chip | 1 = PCX1, 2 = PCX2 |
 | 20 | uint32 | page_bytes | ISP page size from `PAGE_CTRL` bits 9:8 (4096, 8192 or 16384) |
-| 24 | uint32 | tlb_entries | TLB entries the driver wrote for this frame (0 if bus mastering was off) |
+| 24 | uint32 | tlb_entries | Highest TLB entry the driver has written so far, + 1 (0 if bus mastering was off). Builds before pcx-v0.2 counted only entries written since the previous frame, so dumps from the DOS SGL driver, which writes the TLB once, held no scene |
 | 28 | uint32 | object_bytes | Size of the PCX1 object buffer |
 | 32 | uint32 | texmem_bytes | 4194304 |
 | 36 | uint32 | pci_command | PCI command register at the time |
