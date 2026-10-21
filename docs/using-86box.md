@@ -68,6 +68,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | MDK | Compared on the card: exact | |
 | MoonRacer | Compared on the card: exact | Shadow and light volumes in every frame |
 | Winter Race 3D (demo) | Compared on the card: exact | |
+| Flight Unlimited (Compaq OEM) | Compared on the card: 0–1 pixels | Mirrors all its textures |
 | Sub Culture | Compared on the card: 0–1 pixels | |
 | Wipeout XL | Compared on the card: 0–1 pixels | |
 | PureVex | Compared on the card: exact | Uses the card's adaptive bilinear filtering |

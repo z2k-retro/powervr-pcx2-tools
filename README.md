@@ -4,7 +4,7 @@ Tools and documentation for the **PowerVR Series 1 PCX2**, the 3D chip on the Ma
 
 **Just want to try it?** See [Using the PCX2 emulation in 86Box](docs/using-86box.md): downloads, setup, settings, speed and a compatibility list.
 
-That emulation now matches a real m3D to within a few pixels per 640×480 frame on every game captured so far, including Moto Racer, Shadows of the Empire, Ultim@te Race, MechWarrior 2, MoonRacer, Quake, GLQuake, Quake II, Unreal and MDK. The full list is in [the reference](docs/reference.md#games-compared-on-the-m3d).
+That emulation now matches a real m3D to within a few pixels per 640×480 frame on every game captured so far, including Moto Racer, Shadows of the Empire, Ultim@te Race, Flight Unlimited, MechWarrior 2, MoonRacer, Quake, GLQuake, Quake II, Unreal and MDK. The full list is in [the reference](docs/reference.md#games-compared-on-the-m3d).
 
 ## What's here
 

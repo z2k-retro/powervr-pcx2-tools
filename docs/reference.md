@@ -235,6 +235,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | MoonRacer | SGL | 9 + 15 register variants | 0 | First game with shadow and light volumes throughout; `CAMERA` 0x1E0 |
 | Winter Race 3D demo | SGL | 3 | 0 | Gouraud and flat-highlight shading, translucency |
 | Tomb Raider demo (DOS) | SGL, DOS driver | 3 + 15 register variants | 0 to 3 | Adaptive bilinear with mip-maps and fog; see below |
+| Flight Unlimited (Compaq OEM) | SGL | 3 | 0 to 1 | First game seen with mirrored textures: every texture is mirrored in u, mip-mapped, with `BILINEAR` = 3 and fog |
 | Sub Culture | not recorded | 3 | 0 to 1 | Dark blue fog (`FOGAMOUNT` 16); right clip at 643 with tiles to x = 671 |
 | Wipeout XL | not recorded | 3 | 0 to 1 | Drawn without dither (`PACKMODE` 0x02) |
 | PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |
@@ -253,7 +254,7 @@ For features no captured game uses, real frames were edited (texture settings ch
 | Feature | Result |
 | --- | --- |
 | 8-bit (332) textures, set up as SGL creates them | Exact, with every filter mode, output format and fog setting |
-| Mirrored textures, bilinear off | Exact in u, v and both |
+| Mirrored textures, bilinear off | Exact in u, v and both; also exact in a real game (Flight Unlimited, mirrored in u) |
 | Mirrored textures, between mip levels (`BILINEAR` = 3) | Exact |
 | Mirrored in u, bilinear filtering | Exact (10 pixels): the filter weight is inverted along with the coordinate |
 | Mirrored in v, bilinear filtering | Not yet matched; the u rule does not carry over |
