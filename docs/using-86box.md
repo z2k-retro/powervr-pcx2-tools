@@ -59,7 +59,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | --- | --- | --- |
 | SGL demos (SGLTri, logo) | Compared on the card: exact | |
 | Moto Racer (demo) | Compared on the card: 0–13 pixels differ; exact at 512×384, 0–2 at 640×400, exact in 16:9 and 0–7 in split screen | The demo is slow at 640×480 on real hardware too |
-| Shadows of the Empire | Compared on the card: 0–1 pixels with the 1.1 patch | **Use LucasArts' 1.1 update (`shadowsp.exe`)**, which added PCX2 and m3D support; it fixes the menus and the see-through probe droid legs. Fog is missing on the PCX2 even with 1.1: LucasArts' own 1.1 notes say "There will be no fog in the game" on this chipset. Version 1.0 also runs, with a "Hardware Assessment" warning, menu seams and pale droid legs, and matches the card (0–5 pixels) |
+| Shadows of the Empire | Compared on the card: 0–1 pixels with the 1.1 patch, at 640×480 and 320×240 | **Use LucasArts' 1.1 update (`shadowsp.exe`)**, which added PCX2 and m3D support; it fixes the menus and the see-through probe droid legs. Fog is missing on the PCX2 even with 1.1: LucasArts' own 1.1 notes say "There will be no fog in the game" on this chipset. Version 1.0 also runs, with a "Hardware Assessment" warning, menu seams and pale droid legs, and matches the card (0–5 pixels) |
 | Ultim@te Race | Compared on the card: exact | Fog and mip-mapping |
 | Quake (PowerVR) timedemo | Compared on the card: exact | |
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
@@ -81,7 +81,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 Not yet seen in any game captured so far, so not yet checked against the card:
 
 - textures mirrored in v with bilinear filtering (8-bit textures and every other mirroring case match the card in edited frames; no game seen so far uses either);
-- 320×240 and resolutions above 640×480 (512×384 and 640×400 match), and windowed Direct3D;
+- resolutions above 640×480 (320×240, 512×384 and 640×400 match), and windowed Direct3D;
 - bilinear modes other than the adaptive one PureVex uses (the others were tested only by changing the register);
 - scenes too large for one pass, which the drivers split into several renders;
 - the `FASTFOG` mode.
