@@ -59,7 +59,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | --- | --- | --- |
 | SGL demos (SGLTri, logo) | Compared on the card: exact | |
 | Moto Racer (demo) | Compared on the card: 0–13 pixels differ; exact at 512×384, 0–2 at 640×400, exact in 16:9 and 0–7 in split screen | The demo is slow at 640×480 on real hardware too |
-| Shadows of the Empire | Compared on the card: 0–5 pixels | The "Hardware Assessment" warning at start-up comes from the Matrox driver's capabilities and appears on a real m3D too. Menu seams and dim text are on the real card as well, and so are the pale, see-through-looking legs of the probe droid on Hoth. |
+| Shadows of the Empire | Compared on the card: 0–1 pixels with the 1.1 patch | **Use LucasArts' 1.1 update (`shadowsp.exe`)**, which added PCX2 and m3D support; it fixes the menus and the see-through probe droid legs. Fog is missing on the PCX2 even with 1.1: LucasArts' own 1.1 notes say "There will be no fog in the game" on this chipset. Version 1.0 also runs, with a "Hardware Assessment" warning, menu seams and pale droid legs, and matches the card (0–5 pixels) |
 | Ultim@te Race | Compared on the card: exact | Fog and mip-mapping |
 | Quake (PowerVR) timedemo | Compared on the card: exact | |
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
