@@ -225,7 +225,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | SGLTri (SDK demo) | SGL | 1, traced from a VM | 0 | First replay of a real driver frame |
 | SGL logo demo | SGL | 3 + 13 register variants | 0, 1, 0 | All output formats, dither, filters, `CAMERA` |
 | Moto Racer demo | Direct3D | 6 at 640×480; 3 + 15 register variants each at 512×384, 640×400, 16:9 and split screen | 0 to 13; 0 at 512×384; 0 to 2 at 640×400; 0 at 16:9; 0 to 7 split screen | 13 in one frame, distant scenery. 512×384 is 16×12 whole tiles (`XCLIP` right limit 513); 640×400 ends in a half-height row of tiles, and the 16:9 mode draws 640×360, ending in a row only 8 lines tall; both match. The few differing pixels are single pixels on polygon edges mid-screen. Split screen draws each player's view as its own 320×400 frame (`LSTRIDE` 640, `XCLIP` right limit 321) into two buffers in turn, which the game then places side by side |
-| Shadows of the Empire | Direct3D | 3 in game, 3 menu | 0 to 1 in game, 5 menu | Menu seams and dim text are on the card too |
+| Shadows of the Empire | Direct3D | 6 in game, 3 menu | 0 to 1 in game, 5 menu | Menu seams and dim text are on the card too. The probe droid's pale legs (Hoth) match exactly: they are drawn as an ordinary opaque 16-bit (555) texture, with no alpha or translucency, so the pale colour is in the texture as the driver converted it |
 | Ultim@te Race | Direct3D | 3 + 16 register variants | 0 | First game with fog and mip-maps |
 | Quake timedemo | PowerVR port | session run | 0 | Reported by Zvi, 2026-10-18 |
 | Unreal castle flyby | Direct3D | 3 | 2, 0, 1 |  |
