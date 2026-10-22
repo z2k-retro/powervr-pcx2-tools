@@ -70,7 +70,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Winter Race 3D (demo) | Compared on the card: exact | |
 | Flight Unlimited (Compaq OEM) | Compared on the card: 0–1 pixels | Mirrors all its textures |
 | Sub Culture | Compared on the card: 0–1 pixels | |
-| World Cup 98 | Compared on the card: 0–2 pixels | Its installer replaces the PowerVR driver with its own version |
+| World Cup 98 | Compared on the card: 0–2 pixels | Its installer offers to install an older PowerVR driver (4.1.0.2); you can decline and keep the m3D's 4.1.1 |
 | Wipeout XL | Compared on the card: 0–1 pixels | |
 | PureVex | Compared on the card: exact | Uses the card's adaptive bilinear filtering |
 | MechWarrior 2 (PowerVR patch) | Compared on the card: exact | The patch is for the Windows 95 version; it does not run with the DOS version |
