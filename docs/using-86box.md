@@ -92,6 +92,7 @@ Not yet seen in any game captured so far, so not yet checked against the card:
 
 - Render time is fixed at 7.6 ms per frame. On the real card it depends on the scene (13–27 ms in the games tested), so the emulation can run faster than real hardware.
 - PCX1 boards (Apocalypse 3D) are not emulated.
+- With a Matrox Millennium as the 2D card, 320-wide screen modes (320×240, 320×200, some split-screen modes) show the picture doubled side by side. That is 86Box's Millennium display, not the PowerVR: the 3D frames match the real card, and the S3 Trio64 shows the same modes correctly.
 - 86Box may log "Illegal instruction … (FF)" after the driver starts. That is Windows software deliberately executing an invalid opcode, which a real CPU traps the same way; it is harmless.
 
 ## Reporting a problem
