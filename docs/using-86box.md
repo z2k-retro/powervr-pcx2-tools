@@ -63,7 +63,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Ultim@te Race | Compared on the card: exact | Fog and mip-mapping |
 | Quake (PowerVR) timedemo | Compared on the card: exact | |
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
-| GLQuake (PowerVR minigl) | Compared on the card: exact | Busiest scenes tested; the card takes about 44 ms per frame |
+| GLQuake (PowerVR minigl) | Compared on the card: exact, at 640×480 and 1024×768 (`glquake -width 1024 -height 768`) | Busiest scenes tested; the card takes about 44 ms per frame at 640×480 and 79 ms at 1024×768 |
 | Quake II | Compared on the card: 1 pixel | Needs a fast host: smooth on a Core Ultra 7 270K, slow on an i7-3960X. The card itself takes about 37 ms per frame here |
 | MDK | Compared on the card: exact | |
 | MoonRacer | Compared on the card: exact | Shadow and light volumes in every frame |
@@ -84,7 +84,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 Not yet seen in any game captured so far, so not yet checked against the card:
 
 - textures mirrored in v with bilinear filtering (8-bit textures and every other mirroring case match the card in edited frames; no game seen so far uses either);
-- resolutions above 640×480 beyond the X demo's 800×600 (320×240, 512×384 and 640×400 match too), and windowed Direct3D;
+- windowed Direct3D (every screen size from 320×200 to 1024×768 matches);
 - bilinear modes other than the adaptive one PureVex uses (the others were tested only by changing the register);
 - scenes too large for one pass, which the drivers split into several renders;
 - the `FASTFOG` mode.
