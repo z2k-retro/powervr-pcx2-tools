@@ -244,7 +244,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | World Cup 98 | SGL | 3 + 15 register variants | 0 to 2 | Heaviest frames so far (the card takes about 52 ms); strongest fog (`FOGAMOUNT` 1); three screen buffers in turn; `OBJECT_OFFSET` 0x80001. Its installer offers PowerVR driver 4.1.0.2; these frames were drawn with it |
 | Forsaken | Direct3D | 3 + 15 register variants | 0 to 3 | Slowest frames so far: the card takes about 80 ms; every texture is 4444. Drawn with driver 4.1.0.2 |
 | POD | SGL | 3 + 15 register variants | 0 to 1 | Weakest fog seen (`FOGAMOUNT` 11, dark grey), `CAMERA` 0xA8, `BILINEAR` = 3. Crashed at launch with the m3D CD's driver; runs with a 4.1 driver |
-| X demo (non-interactive) | SGL | 3 + 15 register variants | 0 | First frame above 640×480: 800×600 with the scene in Y 64–543 (`XCLIP` right limit 801). Compared in the 640×480 window the session tools used at the time |
+| X demo (non-interactive) | SGL | 3 + 15 register variants | 0 | First frame above 640×480: 800×600 with the scene in Y 64–543 (`XCLIP` right limit 801). Compared over the whole 800×544 area |
 | Sub Culture | not recorded | 3 | 0 to 1 | Dark blue fog (`FOGAMOUNT` 16); right clip at 643 with tiles to x = 671 |
 | Wipeout XL | not recorded | 3 | 0 to 1 | Drawn without dither (`PACKMODE` 0x02) |
 | PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |
