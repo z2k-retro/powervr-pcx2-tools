@@ -204,7 +204,7 @@ The emulator draws PCX2 frames with the SABRE (ISP) and TEXAS (TSP) software mod
 
 ## Behaviour found with game frames
 
-Eight behaviours differ from the Imagination simulator or were missing from it; each was found by drawing 86Box frame dumps on the m3D and fixing the renderer until every pixel matched.
+Nine behaviours differ from the Imagination simulator or were missing from it; each was found by drawing 86Box frame dumps on the m3D and fixing the renderer until every pixel matched.
 
 | Behaviour | What the m3D does | Found with |
 | --- | --- | --- |
@@ -214,6 +214,7 @@ Eight behaviours differ from the Imagination simulator or were missing from it; 
 | Mip chain offset | A mip-mapped texture's chain starts one pixel in: the 1×1 level is the second pixel of the first word, and every larger level follows it. The simulator's offsets are one pixel short. | Ultim@te Race |
 | Fog enable | `FOGCOL` bit 24 turns fog on; with it clear no pixel is fogged, whatever the TSP flags say. | Ultim@te Race |
 | Adaptive bilinear | `BILINEAR` = 1 filters bilinearly on the two finest mip steps (the simulator's level estimate below 2) and blends between mip levels beyond that. | Ultim@te Race |
+| Region word Y ≥ 512 | Bit 29 of a region word is the top bit of its Y position, so every tile from Y 512 down has it set. Only a word with bit 29 set and bit 30 clear is a link. The simulator's test for bit 29 alone lost the rest of 800×600 frames. | X demo (800×600) |
 | Small negative C | A plane's C between −2 and 0 in fixed point does not truncate toward 0: the chip makes it the most negative value, so an edge plane with such a C rejects its whole object. Small positive values are unaffected. Seen with C from −0.25 to −1.63 (missing on the card) against −2.46 and +0.14 to +0.75 (drawn). | Shadows of the Empire 1.1, 320×240 and 320×200 |
 | Right clip | With `XCLIP` bit 28 set, columns from bits 25:16 onward are not written, so with the drivers' width + 1 the chip writes one column past the scene. The renderer had stopped one column earlier. | MDK |
 
@@ -243,6 +244,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | World Cup 98 | SGL | 3 + 15 register variants | 0 to 2 | Heaviest frames so far (the card takes about 52 ms); strongest fog (`FOGAMOUNT` 1); three screen buffers in turn; `OBJECT_OFFSET` 0x80001. Its installer offers PowerVR driver 4.1.0.2; these frames were drawn with it |
 | Forsaken | Direct3D | 3 + 15 register variants | 0 to 3 | Slowest frames so far: the card takes about 80 ms; every texture is 4444. Drawn with driver 4.1.0.2 |
 | POD | SGL | 3 + 15 register variants | 0 to 1 | Weakest fog seen (`FOGAMOUNT` 11, dark grey), `CAMERA` 0xA8, `BILINEAR` = 3. Crashed at launch with the m3D CD's driver; runs with a 4.1 driver |
+| X demo (non-interactive) | SGL | 3 + 15 register variants | 0 | First frame above 640×480: 800×600 with the scene in Y 64–543 (`XCLIP` right limit 801). Compared in the 640×480 window the session tools used at the time |
 | Sub Culture | not recorded | 3 | 0 to 1 | Dark blue fog (`FOGAMOUNT` 16); right clip at 643 with tiles to x = 671 |
 | Wipeout XL | not recorded | 3 | 0 to 1 | Drawn without dither (`PACKMODE` 0x02) |
 | PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |

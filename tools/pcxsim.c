@@ -150,11 +150,19 @@ render_and_save(const char *out, const char *ref)
     if (res.max_x < 0)
         return 1;
 
-    w = 640;
-    h = 480;
+    /* The frame: at least 640x480, larger when the scene reaches further
+       (800x600 frames). pcx2play uses the same rule for its card buffer. */
+    w = (res.max_x + 1 > 640) ? res.max_x + 1 : 640;
+    h = (res.max_y + 1 > 480) ? res.max_y + 1 : 480;
     if (ref) {
         long len;
         refpx = (uint16_t *) load_file(ref, &len);
+        if (len == 640 * 480 * 2)
+            w = 640, h = 480; /* from a pcx2play older than this rule */
+        else if (len != (long) w * h * 2) {
+            printf("%s: %ld bytes, not a %dx%d 16-bit frame; not compared\n", ref, len, w, h);
+            refpx = NULL;
+        }
     }
     f = fopen(out, "wb");
     fprintf(f, "P6\n%d %d\n255\n", w, h);

@@ -42,8 +42,8 @@
 #define IOVA_FB    0x01400000u /* frame buffer, up to 4 MB */
 #define MAP_SIZE   0x00800000u
 #define TEX_BYTES  0x00400000u
-#define W          640
-#define H          480
+/* Frame size: at least 640x480, larger when the scene reaches further. */
+static int W = 640, H = 480;
 
 static FILE *report;
 
@@ -346,6 +346,26 @@ main(int argc, char **argv)
         regs[set_idx[i]] = set_val[i];
     pm = regs[0x10];
     bpp = bytes_pp(pm);
+
+    /* The 86Box renderer on the same input, first: its extent sizes the
+       frame (800x600 scenes go past 640x480). */
+    rgb = calloc(PCXR_MAX_W * PCXR_MAX_H, 4);
+    memset(&fr, 0, sizeof(fr));
+    fr.isp           = (const uint32_t *) (d + 64 + 4096);
+    fr.isp_words     = page * pages / 4;
+    fr.tex           = (const uint32_t *) (d + 64 + 4096 + page * pages + objb);
+    fr.tex_words     = TEX_BYTES / 4;
+    fr.object_offset = regs[0x07];
+    fr.fog_shift     = regs[0x06];
+    fr.fog_colour    = regs[0x0e];
+    fr.camera        = regs[0x0f];
+    fr.xclip         = regs[0x14];
+    fr.bilinear      = regs[0x19];
+    fr.fog_table     = &regs[0x80];
+    pcxr_render(&fr, rgb, &res);
+    W = (res.max_x + 1 > 640) ? res.max_x + 1 : 640;
+    H = (res.max_y + 1 > 480) ? res.max_y + 1 : 480;
+
     if (!stride_set)
         regs[0x12] = W * bpp;
     stride = regs[0x12];
@@ -451,23 +471,9 @@ card_done:
     snprintf(path, sizeof(path), "%s/%s-card.ppm", outdir, name);
     write_ppm(path, fb, stride, pm);
 
-    /* The 86Box renderer on the same input. */
-    rgb = calloc(PCXR_MAX_W * PCXR_MAX_H, 4);
+    /* The renderer's frame, packed as the chip would write it. */
     emu = malloc(stride * H);
     memset(emu, 0xa5, stride * H);
-    memset(&fr, 0, sizeof(fr));
-    fr.isp           = (const uint32_t *) isp;
-    fr.isp_words     = page * pages / 4;
-    fr.tex           = (const uint32_t *) (d + 64 + 4096 + page * pages + objb);
-    fr.tex_words     = TEX_BYTES / 4;
-    fr.object_offset = regs[0x07];
-    fr.fog_shift     = regs[0x06];
-    fr.fog_colour    = regs[0x0e];
-    fr.camera        = regs[0x0f];
-    fr.xclip         = regs[0x14];
-    fr.bilinear      = regs[0x19];
-    fr.fog_table     = &regs[0x80];
-    pcxr_render(&fr, rgb, &res);
     for (int y = res.min_y; y <= res.max_y && y < H; y++)
         for (int x = res.min_x; x <= res.max_x && x < W; x++) {
             uint32_t px;

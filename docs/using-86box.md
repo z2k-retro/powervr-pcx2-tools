@@ -70,6 +70,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Winter Race 3D (demo) | Compared on the card: exact | |
 | Flight Unlimited (Compaq OEM) | Compared on the card: 0–1 pixels | Mirrors all its textures |
 | Sub Culture | Compared on the card: 0–1 pixels | |
+| X demo (non-interactive) | Compared on the card: exact | 800×600; needs a build from after pcx-v0.2 |
 | World Cup 98 | Compared on the card: 0–2 pixels | Its installer offers to install PowerVR driver 4.1.0.2 |
 | Forsaken | Compared on the card: 0–3 pixels | The card itself takes about 80 ms per frame |
 | Wipeout XL | Compared on the card: 0–1 pixels | |
@@ -83,7 +84,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 Not yet seen in any game captured so far, so not yet checked against the card:
 
 - textures mirrored in v with bilinear filtering (8-bit textures and every other mirroring case match the card in edited frames; no game seen so far uses either);
-- resolutions above 640×480 (320×240, 512×384 and 640×400 match), and windowed Direct3D;
+- resolutions above 640×480 beyond the X demo's 800×600 (320×240, 512×384 and 640×400 match too), and windowed Direct3D;
 - bilinear modes other than the adaptive one PureVex uses (the others were tested only by changing the register);
 - scenes too large for one pass, which the drivers split into several renders;
 - the `FASTFOG` mode.
