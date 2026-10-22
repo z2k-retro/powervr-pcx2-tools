@@ -248,7 +248,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |
 | MDK | Direct3D | 3 + 15 register variants | 0 | 600-pixel 3D view beside the 2D panel; found the right-clip rule |
 
-Tomb Raider and the Hexen II demo looked correct in 86Box but were not compared on the card. Terracide shows minor flicker, not yet captured.
+The Hexen II demo looked correct in 86Box but was not compared on the card. Terracide shows minor flicker, not yet captured.
 
 ### The DOS driver
 
