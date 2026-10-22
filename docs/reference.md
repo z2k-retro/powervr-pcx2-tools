@@ -238,6 +238,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | Winter Race 3D demo | SGL | 3 | 0 | Gouraud and flat-highlight shading, translucency |
 | Tomb Raider demo (DOS) | SGL, DOS driver | 3 + 15 register variants | 0 to 3 | Adaptive bilinear with mip-maps and fog; see below |
 | Flight Unlimited (Compaq OEM) | SGL | 3 + 15 register variants | 0 to 1 | First game seen with mirrored textures: every texture is mirrored in u, mip-mapped, with `BILINEAR` = 3 and fog. The adaptive-bilinear variant, mirrored u with bilinear filtering, is exact too |
+| World Cup 98 | SGL | 3 + 15 register variants | 0 to 2 | Heaviest frames so far (the card takes about 52 ms); strongest fog (`FOGAMOUNT` 1); three screen buffers in turn; its installer replaces the PowerVR driver, after which `OBJECT_OFFSET` is 0x80001 |
 | Sub Culture | not recorded | 3 | 0 to 1 | Dark blue fog (`FOGAMOUNT` 16); right clip at 643 with tiles to x = 671 |
 | Wipeout XL | not recorded | 3 | 0 to 1 | Drawn without dither (`PACKMODE` 0x02) |
 | PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |
