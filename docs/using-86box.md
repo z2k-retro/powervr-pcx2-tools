@@ -15,7 +15,7 @@ The `-devsettings` builds add developer and test settings (below). You don't nee
 
 1. Make a Windows 95 or 98 machine with PCI slots: a Pentium MMX or Pentium II board, at least 32 MB of RAM, and any 2D card with Windows drivers. The m3D renders into the 2D card's memory, as the real card does.
 2. In **Settings → Display**, tick **PowerVR PCX1/PCX2 Graphics**. **Configure** opens the settings below.
-3. Install Windows and the 2D card's driver, then the Matrox m3D driver (tested: the retail 4.1.1 driver). Windows 98 SE already includes a new enough DirectX (6.1). The PowerVR SGL demos and the m3D's Direct3D driver should then work.
+3. Install Windows and the 2D card's driver, then a PowerVR driver: the one on the Matrox m3D CD (4.0.x) or a later 4.1.x. Most games here were compared with the m3D CD's driver, and World Cup 98 and Forsaken with PowerVR 4.1.0.2. Windows 98 SE already includes a new enough DirectX (6.1). The PowerVR SGL demos and the m3D's Direct3D driver should then work.
 
 Matrox's `MGASETUP` utility crashes in the VM because it expects Matrox's own 2D card. The driver installer works, and nothing else needs `MGASETUP`.
 
@@ -70,7 +70,8 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Winter Race 3D (demo) | Compared on the card: exact | |
 | Flight Unlimited (Compaq OEM) | Compared on the card: 0–1 pixels | Mirrors all its textures |
 | Sub Culture | Compared on the card: 0–1 pixels | |
-| World Cup 98 | Compared on the card: 0–2 pixels | Its installer offers to install an older PowerVR driver (4.1.0.2); you can decline and keep the m3D's 4.1.1 |
+| World Cup 98 | Compared on the card: 0–2 pixels | Its installer offers to install PowerVR driver 4.1.0.2 |
+| Forsaken | Compared on the card: 0–3 pixels | The card itself takes about 80 ms per frame |
 | Wipeout XL | Compared on the card: 0–1 pixels | |
 | PureVex | Compared on the card: exact | Uses the card's adaptive bilinear filtering |
 | MechWarrior 2 (PowerVR patch) | Compared on the card: exact | The patch is for the Windows 95 version; it does not run with the DOS version |
