@@ -15,10 +15,12 @@ SRC="${SRC:-$HOME/86box-pcx}"                    # source and build
 VMS="${VMS:-$HOME/86box-pcx-vms/win98-pcx}"      # the VM folder (its own 86box.cfg and disk)
 REPO="${REPO:-https://github.com/z2k-retro/86Box.git}"
 BRANCH="${BRANCH:-powervr-pcx}"
+NDR="${NDR:-ON}"   # NDR=OFF builds with 86Box's default (old) recompiler instead
 
 configure_and_build() {
-	# NEW_DYNAREC: the old recompiler stops with "Over limit!" under Windows 98 Setup.
-	cmake -S "$SRC" -B "$SRC/build" --preset regular -D NEW_DYNAREC=ON
+	# NEW_DYNAREC: the old recompiler stopped with "Over limit!" under Windows 98
+	# Setup here, so the new one is the default; NDR=OFF to compare.
+	cmake -S "$SRC" -B "$SRC/build" --preset regular -D NEW_DYNAREC="$NDR"
 	cmake --build "$SRC/build"
 	if [ ! -d "$SRC/build/src/roms" ]; then
 		git clone --depth 1 https://github.com/86Box/roms.git "$SRC/build/src/roms"
