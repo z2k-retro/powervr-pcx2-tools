@@ -64,6 +64,7 @@ If **emulation waited** is near 0, the renderer is not what is slowing the VM; t
 | Quake (PowerVR) timedemo | Compared on the card: exact | |
 | Unreal (castle flyby) | Compared on the card: 0–2 pixels | |
 | GLQuake (PowerVR minigl) | Compared on the card: exact, at 640×480 and 1024×768 (`glquake -width 1024 -height 768`) | Busiest scenes tested; the card takes about 44 ms per frame at 640×480 and 79 ms at 1024×768 |
+| Half-Life | Compared on the card: exact (opening tram ride) | Loads and renders as on a real m3D; how well it plays on PowerVR is a separate question |
 | Quake II | Compared on the card: 1 pixel | Needs a fast host: smooth on a Core Ultra 7 270K, slow on an i7-3960X. The card itself takes about 37 ms per frame here |
 | MDK | Compared on the card: exact | |
 | MoonRacer | Compared on the card: exact | Shadow and light volumes in every frame |
