@@ -58,4 +58,6 @@ sudo chown -R "$USER" "$OUT"
 echo
 grep -E "^== |rendered in|NO end|differ|skipped" "$OUT/report.txt"
 echo
+echo "Note: prec-base-0x100 always differs. It moves the parameter area in a way no driver uses and the emulation does not model; ignore it."
+echo
 bash "$ROOT/scripts/pcx2pack.sh" "$OUT"
