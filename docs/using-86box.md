@@ -6,7 +6,7 @@ This is a test build, not part of official 86Box. Please report problems to this
 
 ## Getting it
 
-- **Windows**: download `86Box-PowerVR-Windows-64-….zip` from the fork's [Releases](https://github.com/z2k-retro/86Box/releases), unzip it anywhere, and use it with the [86Box ROM set](https://github.com/86Box/roms) like any 86Box build. Builds of every commit are also under the fork's Actions tab (GitHub login needed).
+- **Windows**: download `86Box-PowerVR-Windows-64-….zip` from the fork's [Releases](https://github.com/z2k-retro/86Box/releases), unzip it anywhere, and use it with the [86Box ROM set](https://github.com/86Box/roms) like any 86Box build. Builds of every commit are also under the fork's Actions tab (GitHub login needed). From pcx-v0.3 these use 86Box's new recompiler, since the old one stops with "Over limit!" in Windows 98 on the machines tested; an `-OldDR` download with the old recompiler is there for comparison.
 - **Linux**: `bash scripts/build86box-pcx.sh deps` (Debian/Ubuntu packages), then `bash scripts/build86box-pcx.sh build` and `… run`. It builds in `~/86box-pcx`, separate from any 86Box you already have.
 
 The `-devsettings` builds add developer and test settings (below). You don't need them to play.
