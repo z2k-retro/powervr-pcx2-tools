@@ -23,7 +23,7 @@ Matrox's `MGASETUP` utility crashes in the VM because it expects Matrox's own 2D
 
 | Setting | Default | What it does |
 | --- | --- | --- |
-| Render threads | 4 | Host threads drawing each frame. Set it to your CPU's performance-core count (6–8 on a current desktop). The output is identical whatever the setting. |
+| Render threads | 3 | Host threads drawing each frame. More threads draw faster, but they compete with 86Box's own emulation thread, and that thread running late is what breaks up the sound. Roughly half the host's physical cores works well: 3 on a six-core i7-8700K, more on a CPU with cores to spare. The render threads run at lower priority than emulation. The output is identical whatever the setting. |
 | Logging | Summary | **Summary**: start-up, problems, and every 100 frames the host render time and how long emulation waited for it. **Every render and interrupt** and **Every register access** are for debugging and slow things down. |
 | Dump N frames to powervr_dumps | 0 | Saves the complete input of N frames, starting at the frame below, to the VM's `powervr_dumps` folder. A dump can be rendered without the game (`pcxsim`) or drawn on a real card (`pcx2play`). |
 | Start dumping at frame | 1 | Frames are counted from when 86Box starts. The log's last line, "PowerVR: N frames rendered", helps you pick a number. |
