@@ -43,13 +43,19 @@ These appear only in builds configured with `-D POWERVR_PCX_DEV=ON`, which is al
 
 ## Speed
 
-The frame is drawn on its own threads while the emulated PC keeps running. The summary log line shows whether your host keeps up:
+The frame is drawn on its own threads while the emulated PC keeps running. Every 100 frames the log shows how the host is keeping up:
 
 ```
-PowerVR: frames 501-600: render 6.2 ms average (11.0 max) on 8 thread(s), emulation waited 0.0 ms per frame; emulated render time 7.6 ms
+PowerVR: frames 501-600: render 9.8 ms average (14.0 max) on 8 thread(s), emulation waited 0.0 ms and wrote output 0.35 ms per frame; emulated render time 7.6 ms + 2.4 ms held back for the host
 ```
 
-If **emulation waited** is near 0, the renderer is not what is slowing the VM; the emulated CPU is. If it is high, add render threads. For comparison, a real m3D takes about 13–27 ms per frame in the games tested (reference, Appendix E).
+- **render**: host time to draw a frame. More render threads bring it down.
+- **held back for the host**: when the host is slower than the emulated card's 7.6 ms, the card simply stays busy longer, as a real m3D does on a heavy frame (13–80 ms in the games tested). The emulated PC keeps running at full speed meanwhile; the game just gets fewer frames per second, never slow motion.
+- **emulation waited**: time the emulated PC itself had to stop; it should be 0.
+
+The emulated CPU is usually the real limit: a Pentium II at 450 MHz is demanding for 86Box on any host, with or without the PowerVR. A slower emulated CPU (a Pentium 166–266) is plenty for most PowerVR games.
+
+Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finished a frame. Games that count timer ticks, such as the DOS Tomb Raider and native PowerVR Quake, then ran in slow motion while their own counters showed a normal frame rate.
 
 ## Compatibility
 
