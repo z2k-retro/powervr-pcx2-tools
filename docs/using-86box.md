@@ -57,6 +57,12 @@ PowerVR: frames 501-600: render 9.8 ms average (14.0 max) on 8 thread(s), emulat
 
 The emulated CPU is usually the real limit: a Pentium II at 450 MHz is demanding for 86Box on any host, with or without the PowerVR. A slower emulated CPU (a Pentium 166–266) is plenty for most PowerVR games.
 
+If a game slows down or the sound breaks up while "held back for the host" is small, the emulation itself is falling behind, not the card. On the test machines these helped:
+
+- 86Box's OpenGL renderer (View → Renderer → OpenGL 3.0 Core) instead of Qt Software, which draws every screen update with the host CPU.
+- Closing hardware monitors such as HWiNFO while playing; their sensor polling can stall the whole system briefly, which an emulator hears as stutter.
+- Running one copy of 86Box at a time.
+
 Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finished a frame. Games that count timer ticks, such as the DOS Tomb Raider and native PowerVR Quake, then ran in slow motion while their own counters showed a normal frame rate.
 
 ## Compatibility
