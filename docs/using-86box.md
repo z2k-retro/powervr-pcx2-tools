@@ -28,6 +28,8 @@ Matrox's `MGASETUP` utility crashes in the VM because it expects Matrox's own 2D
 | Dump N frames to powervr_dumps | 0 | Saves the complete input of N frames, starting at the frame below, to the VM's `powervr_dumps` folder. A dump can be rendered without the game (`pcxsim`) or drawn on a real card (`pcx2play`). |
 | Start dumping at frame | 1 | Frames are counted from when 86Box starts. The log's last line, "PowerVR: N frames rendered", helps you pick a number. |
 
+The log is written only when 86Box is started with a log file named, for example `86Box.exe -L pcx.log` from a command prompt in the 86Box folder, or `-L pcx.log` added to a shortcut's target. Without it, the messages go to a console that Windows builds don't show.
+
 ### Developer settings
 
 These appear only in builds configured with `-D POWERVR_PCX_DEV=ON`, which is also the default with `DEV_BRANCH`. They exist to test the emulation against hardware; ordinary builds fix them to the values measured on a Matrox m3D.
