@@ -41,6 +41,8 @@ These appear only in builds configured with `-D POWERVR_PCX_DEV=ON`, which is al
 | PCI revision ID, subsystem vendor/ID | 1, 0, 0 | As read from the m3D |
 | Interrupt acknowledge | Reading INTSTATUS clears it | The other modes were hypotheses before the card was measured |
 | Render time (µs) | 7600 | Delay from STARTRENDER to the end-of-render interrupt |
+| Render time model | Fixed | **From the frame's work (experimental)**: the render time follows the frame instead of the fixed delay. Its coefficients are provisional until fitted to render times measured on the m3D. |
+| Core clock (experimental) | 66 MHz | 75, 80 or 90 MHz, as on overclocked cards (crystal or PLL-strap mods). Only the chip's own work speeds up; frame buffer writes over PCI do not. Used only with the modelled render time. |
 | Debug marker tile | Off | Draws a fixed tile at the frame origin, to check output addressing |
 
 ## Speed

@@ -143,8 +143,9 @@ render_and_save(const char *out, const char *ref)
                memcmp(mt, rgb, sizeof(rgb)) ? "DIFFERS from" : "identical to");
         free(mt);
     }
-    printf("tiles %u, pixels shaded %u, area x %d-%d y %d-%d, error %d\n", res.tiles, res.pixels_shaded,
-           res.min_x, res.max_x, res.min_y, res.max_y, res.error);
+    printf("tiles %u, pixels shaded %u, plane-spans %llu, area x %d-%d y %d-%d, error %d\n", res.tiles,
+           res.pixels_shaded, (unsigned long long) res.isp_plane_spans, res.min_x, res.max_x, res.min_y,
+           res.max_y, res.error);
     printf("regs: OBJECT_OFFSET %08x FOGAMOUNT %u FOGCOL %08x CAMERA %x PACKMODE %02x XCLIP %08x BILINEAR %u\n",
            regs[0x07], regs[0x06], regs[0x0e], regs[0x0f], pm, regs[0x14], regs[0x19]);
     if (res.max_x < 0)
