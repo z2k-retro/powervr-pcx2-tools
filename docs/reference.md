@@ -248,6 +248,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | X demo (non-interactive) | SGL | 3 + 15 register variants | 0 | First frame above 640×480: 800×600 with the scene in Y 64–543 (`XCLIP` right limit 801). Compared over the whole 800×544 area |
 | Sub Culture | not recorded | 3 | 0 to 1 | Dark blue fog (`FOGAMOUNT` 16); right clip at 643 with tiles to x = 671 |
 | Wipeout XL | not recorded | 3 | 0 to 1 | Drawn without dither (`PACKMODE` 0x02) |
+| Monday Night Football 98 demo | Direct3D | 3 + 15 register variants | 0 | One full frame (about 307,000 pixels shaded, the card takes about 9 ms) and two that draw only a 41-pixel element; the register variants used one of the small frames |
 | Cyberdome (windowed) | Direct3D | 3 + 15 register variants | 9 | Run in a window: the driver draws into an off-screen 640-wide surface (`LSTRIDE` 1280, `SOFADDR` below the visible screen, `XCLIP` right limit 637, no left limit) and DirectDraw copies it to the window, so the card sees nothing different from full screen. The 9 pixels are one row along an edge shared by two triangles, which passes 1/500 of a row from the pixel centres; the card's colour there matches neither triangle exactly. Not yet explained; changing the plane precision from 15 bits makes the other games worse |
 | PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |
 | MDK | Direct3D | 3 + 15 register variants | 0 | 600-pixel 3D view beside the 2D panel; found the right-clip rule |

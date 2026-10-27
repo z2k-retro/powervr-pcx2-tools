@@ -97,6 +97,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 | Hexen II demo | Looks right | Not yet compared |
 | Terracide | Minor flicker | Not yet captured |
 | POD | Compared on the card: 0–1 pixels | Needs a 4.1 PowerVR driver; it crashed at launch with the m3D CD's older driver |
+| Monday Night Football 98 demo | Compared on the card: exact | |
 | Cyberdome | Compared on the card, windowed: 9 pixels on one row | Windowed Direct3D draws to an off-screen surface that is then copied into the window, so it works like full screen |
 
 Not yet seen in any game captured so far, so not yet checked against the card:
