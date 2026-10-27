@@ -93,7 +93,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 | Wipeout XL | Compared on the card: 0–1 pixels | |
 | PureVex | Compared on the card: exact | Uses the card's adaptive bilinear filtering |
 | MechWarrior 2 (PowerVR patch) | Compared on the card: exact | The patch is for the Windows 95 version; it does not run with the DOS version |
-| Tomb Raider (DOS PowerVR demo) | Compared on the card: 0–3 pixels | Uses PowerVR's DOS driver; needs a build from after pcx-v0.1 for frame dumps |
+| Tomb Raider (DOS PowerVR demo) | Compared on the card: 0–3 pixels at 640×480, 1–7 at 1024×768 | Uses PowerVR's DOS driver; needs a build from after pcx-v0.1 for frame dumps |
 | Hexen II demo | Looks right | Not yet compared |
 | Terracide | Minor flicker | Not yet captured |
 | POD | Compared on the card: 0–1 pixels | Needs a 4.1 PowerVR driver; it crashed at launch with the m3D CD's older driver |

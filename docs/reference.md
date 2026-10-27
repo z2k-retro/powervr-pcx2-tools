@@ -240,7 +240,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | MechWarrior 2 (PowerVR patch) | SGL | 3 + 15 register variants | 0 | Windows 95 version; fog on (`FOGAMOUNT` 5) and `CAMERA` 0x13F |
 | MoonRacer | SGL | 9 + 15 register variants | 0 | First game with shadow and light volumes throughout; `CAMERA` 0x1E0 |
 | Winter Race 3D demo | SGL | 3 | 0 | Gouraud and flat-highlight shading, translucency |
-| Tomb Raider demo (DOS) | SGL, DOS driver | 3 + 15 register variants | 0 to 3 | Adaptive bilinear with mip-maps and fog; see below |
+| Tomb Raider demo (DOS) | SGL, DOS driver | 3 + 15 register variants; 3 + 15 at 1024×768 | 0 to 3; 1 to 7 of 786,432 at 1024×768 | Adaptive bilinear with mip-maps and fog; see below |
 | Flight Unlimited (Compaq OEM) | SGL | 3 + 15 register variants | 0 to 1 | First game seen with mirrored textures: every texture is mirrored in u, mip-mapped, with `BILINEAR` = 3 and fog. The adaptive-bilinear variant, mirrored u with bilinear filtering, is exact too |
 | World Cup 98 | SGL | 3 + 15 register variants | 0 to 2 | Heaviest frames so far (the card takes about 52 ms); strongest fog (`FOGAMOUNT` 1); three screen buffers in turn; `OBJECT_OFFSET` 0x80001. Its installer offers PowerVR driver 4.1.0.2; these frames were drawn with it |
 | Forsaken | Direct3D | 3 + 15 register variants | 0 to 3 | Slowest frames so far: the card takes about 80 ms; every texture is 4444. Drawn with driver 4.1.0.2 |
