@@ -97,11 +97,11 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 | Hexen II demo | Looks right | Not yet compared |
 | Terracide | Minor flicker | Not yet captured |
 | POD | Compared on the card: 0–1 pixels | Needs a 4.1 PowerVR driver; it crashed at launch with the m3D CD's older driver |
+| Cyberdome | Compared on the card, windowed: 9 pixels on one row | Windowed Direct3D draws to an off-screen surface that is then copied into the window, so it works like full screen |
 
 Not yet seen in any game captured so far, so not yet checked against the card:
 
 - textures mirrored in v with bilinear filtering (8-bit textures and every other mirroring case match the card in edited frames; no game seen so far uses either);
-- windowed Direct3D (every screen size from 320×200 to 1024×768 matches);
 - bilinear modes other than the adaptive one PureVex uses (the others were tested only by changing the register);
 - scenes too large for one pass, which the drivers split into several renders;
 - the `FASTFOG` mode.
