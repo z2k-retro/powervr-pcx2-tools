@@ -101,6 +101,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 | Turok demo (1.01) | Compared on the card: exact | First game seen using textures mirrored in v with bilinear filtering (its foliage); the rule was measured with a test texture for it |
 | Heavy Gear (1.2 patch) | Compared on the card: exact | Run through Direct3D. The original release offers Rendition Vérité and 3dfx renderers, the 1.2 patch software and Direct3D; a native PowerVR mode is rumoured but unconfirmed |
 | Jedi Knight: Dark Forces II (demo) | Compared on the card: exact | |
+| Hardcore 4x4 (demo) | Compared on the card: 0–1 pixels | Shadow volumes and coloured fog |
 | Interstate '76 Gold | Compared on the card: 0–1 pixels | Native PowerVR (SGL) renderer, one of several on the Gold disc |
 | Interstate '76 Nitro Pack | Compared on the card: 0–1 pixels | Direct3D (`-d3d`) |
 | Monday Night Football 98 demo | Compared on the card: exact | |
