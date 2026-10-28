@@ -249,6 +249,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | Sub Culture | not recorded | 3 | 0 to 1 | Dark blue fog (`FOGAMOUNT` 16); right clip at 643 with tiles to x = 671 |
 | Wipeout XL | not recorded | 3 | 0 to 1 | Drawn without dither (`PACKMODE` 0x02) |
 | Monday Night Football 98 demo | Direct3D | 3 + 15 register variants | 0 | One full frame (about 307,000 pixels shaded, the card takes about 9 ms) and two that draw only a 41-pixel element; the register variants used one of the small frames |
+| Turok demo 1.01 | Direct3D | 3 + 15 register variants | about 200 (0 with `BILINEAR` = 3) | First game seen with textures mirrored in v under bilinear filtering (`BILINEAR` = 0): translucent 4444 foliage mirrored both ways. Every differing pixel is on those surfaces or seen through them; with the filter off it is exact. 396 to 400 before the v-mirror rule above |
 | Cyberdome (windowed) | Direct3D | 3 + 15 register variants | 9 | Run in a window: the driver draws into an off-screen 640-wide surface (`LSTRIDE` 1280, `SOFADDR` below the visible screen, `XCLIP` right limit 637, no left limit) and DirectDraw copies it to the window, so the card sees nothing different from full screen. The 9 pixels are one row along an edge shared by two triangles, which passes 1/500 of a row from the pixel centres; the card's colour there matches neither triangle exactly. Not yet explained; changing the plane precision from 15 bits makes the other games worse |
 | PureVex | SGL | 3 + 15 register variants | 0 | Sets `BILINEAR` = 1 (adaptive) itself, with fog |
 | MDK | Direct3D | 3 + 15 register variants | 0 | 600-pixel 3D view beside the 2D panel; found the right-clip rule |
@@ -269,7 +270,7 @@ For features no captured game uses, real frames were edited (texture settings ch
 | Mirrored textures, bilinear off | Exact in u, v and both; also exact in a real game (Flight Unlimited, mirrored in u) |
 | Mirrored textures, between mip levels (`BILINEAR` = 3) | Exact |
 | Mirrored in u, bilinear filtering | Exact (10 pixels): the filter weight is inverted along with the coordinate. Also exact in Flight Unlimited with `BILINEAR` = 1 |
-| Mirrored in v, bilinear filtering | Not yet matched; the u rule does not carry over |
+| Mirrored in v, bilinear filtering | Partly matched: the weight is inverted as in u, but the second row is v − 1 rather than v + 1. This halves the differences in these frames and in Turok, the first game seen using it; about half of the v-mirrored pixels still differ by a step or two, so the rule is not complete |
 | A texture without mip-maps whose mip level field is non-zero | Differs where the level is 2 or more. No driver writes this combination |
 | An 8-bit texture with the 4444 flag set | The card draws white. No driver writes this combination |
 
