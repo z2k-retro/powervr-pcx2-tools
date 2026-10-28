@@ -111,7 +111,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 Not yet seen in any game captured so far, so not yet checked against the card:
 
 - 8-bit textures in a real game (they match the card in edited frames);
-- `BILINEAR` = 2 (modes 0, 1 and 3 are all used by games compared on the card; 2 was tested only by changing the register);
+- `BILINEAR` = 2 (modes 0, 1 and 3 are all used by games compared on the card; no game or test has used 2);
 - scenes too large for one pass, which the drivers split into several renders;
 - the `FASTFOG` mode.
 
