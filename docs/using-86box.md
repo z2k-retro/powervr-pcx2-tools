@@ -102,6 +102,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 | Heavy Gear (1.2 patch) | Compared on the card: exact | Run through Direct3D. The original release offers Rendition Vérité and 3dfx renderers, the 1.2 patch software and Direct3D; a native PowerVR mode is rumoured but unconfirmed |
 | Jedi Knight: Dark Forces II (demo) | Compared on the card: exact | |
 | Hardcore 4x4 (demo) | Compared on the card: 0–1 pixels | Shadow volumes and coloured fog |
+| Die by the Sword | Compared on the card: exact | |
 | Interstate '76 Gold | Compared on the card: 0–1 pixels | Native PowerVR (SGL) renderer, one of several on the Gold disc |
 | Interstate '76 Nitro Pack | Compared on the card: 0–1 pixels | Direct3D (`-d3d`) |
 | Monday Night Football 98 demo | Compared on the card: exact | |
@@ -110,7 +111,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 Not yet seen in any game captured so far, so not yet checked against the card:
 
 - 8-bit textures in a real game (they match the card in edited frames);
-- bilinear modes other than the adaptive one PureVex uses (the others were tested only by changing the register);
+- `BILINEAR` = 2 (modes 0, 1 and 3 are all used by games compared on the card; 2 was tested only by changing the register);
 - scenes too large for one pass, which the drivers split into several renders;
 - the `FASTFOG` mode.
 
