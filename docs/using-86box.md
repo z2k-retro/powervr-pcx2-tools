@@ -98,6 +98,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 | Terracide | Minor flicker | Not yet captured |
 | POD | Compared on the card: 0–1 pixels | Needs a 4.1 PowerVR driver; it crashed at launch with the m3D CD's older driver |
 | Turok demo (1.01) | Compared on the card: exact | First game seen using textures mirrored in v with bilinear filtering (its foliage); the rule was measured with a test texture for it |
+| Heavy Gear (1.2 patch) | Compared on the card: exact | Run through Direct3D; the 1.2 patch's renderer menu offers only software and Direct3D |
 | Monday Night Football 98 demo | Compared on the card: exact | |
 | Cyberdome | Compared on the card, windowed: 9 pixels on one row | Windowed Direct3D draws to an off-screen surface that is then copied into the window, so it works like full screen |
 
