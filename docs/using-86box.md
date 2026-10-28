@@ -99,6 +99,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 | POD | Compared on the card: 0–1 pixels | Needs a 4.1 PowerVR driver; it crashed at launch with the m3D CD's older driver |
 | Turok demo (1.01) | Compared on the card: exact | First game seen using textures mirrored in v with bilinear filtering (its foliage); the rule was measured with a test texture for it |
 | Heavy Gear (1.2 patch) | Compared on the card: exact | Run through Direct3D. The original release offers Rendition Vérité and 3dfx renderers, the 1.2 patch software and Direct3D; a native PowerVR mode is rumoured but unconfirmed |
+| Interstate '76 Gold | Compared on the card: 0–1 pixels | Native PowerVR (SGL) renderer, one of several on the Gold disc |
 | Interstate '76 Nitro Pack | Compared on the card: 0–1 pixels | Direct3D (`-d3d`) |
 | Monday Night Football 98 demo | Compared on the card: exact | |
 | Cyberdome | Compared on the card, windowed: 9 pixels on one row | Windowed Direct3D draws to an off-screen surface that is then copied into the window, so it works like full screen |
