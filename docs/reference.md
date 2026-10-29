@@ -184,7 +184,7 @@ The end-of-render interrupt is level-triggered and cleared by reading `INTSTATUS
 
 - **Render:** the 640×480 frame finished 7.6 ms after `STARTRENDER`. The card drew SGLTri's blue triangle (pixel 0x001F, RGB565) at the position the demo's source gives: apex (320, 140), base from (220, 273) to (420, 273).
 - **Interrupt:** the line stays asserted until acknowledged. Unmasking without touching the card fires it again.
-- **Acknowledge:** the first read of `INTSTATUS` returns 0x00000007 and the second returns 0; the line then stays quiet. Bits 0 and 2 are not named in any driver. In two of about 420 card renders so far (Tomb Raider, and Moto Racer at 512×384) the first read returned 0x6, with bit 0 clear; drivers only test bit 1.
+- **Acknowledge:** the first read of `INTSTATUS` returns 0x00000007 and the second returns 0; the line then stays quiet. Bits 0 and 2 are not named in any driver. In three of about 900 card renders so far (Tomb Raider, Moto Racer at 512×384 and the Buccaneer demo) the first read returned 0x6, with bit 0 clear; drivers only test bit 1.
 - **Test vector:** the trace, the 16 MB memory image and the card's frame together make a complete real frame for checking the emulator.
 
 ## Rendering model
@@ -256,6 +256,7 @@ Every game captured so far matches the card to within 13 pixels of 307,200 per f
 | Jedi Knight: Dark Forces II demo | Direct3D | 3 + 15 register variants | 0 | Draws a 512×352 view (x 64–575) in a 640×480 screen; Gouraud-shaded 16-bit textures under full bilinear filtering; the card takes about 14 ms |
 | Hardcore 4x4 demo | SGL (shadow volumes) | 3 + 15 register variants | 0 to 1 | Second game with shadow volumes (after MoonRacer); coloured fog (`FOGAMOUNT` 4); Gouraud-shaded 16-bit textures with the shadow flag; heavy ISP load (about 940,000 plane-spans), the card takes about 38 ms. The one pixel sits on the edge of a dark object against the bright ground: the card gives it to the object, the emulator to the ground |
 | Die by the Sword | Direct3D | 3 + 15 register variants | 0 | Mip-mapped 16-bit textures under full bilinear filtering (`BILINEAR` = 0), Gouraud-shaded, some translucent 4444; grey fog (`FOGAMOUNT` 5); the card takes 18 to 23 ms |
+| Buccaneer demo | Direct3D | 3 (frames 1 to 3) + 15 register variants | 0 | The demo crashed after 46 frames, so the frames were dumped from the start; full bilinear on 16-bit textures, flat and Gouraud-shaded, some translucent 4444. The first frame took the card 57 ms, the next two about 23 ms |
 | Grand Slam Baseball demo | Direct3D | 3 + 15 register variants | 0 | Each render covers only a horizontal band of the screen (rows 160 to 399, one with just 594 shaded pixels): the game redraws part of the picture per frame. Flat-shaded 16-bit textures, some translucent 4444, filter off (`BILINEAR` = 3) |
 | Interstate '76 Gold | SGL | 3 + 15 register variants | 0 to 1; 2 with `CAMERA` 0x200 | The original game's native PowerVR (SGL) renderer, one of several on the Gold disc. Full bilinear with dither; non-mip-mapped 16-bit textures, Gouraud-shaded 555 and flat translucent 4444 |
 | Interstate '76 Nitro Pack | Direct3D | 3 + 15 register variants | 0 to 1 | Heavy frames (about 774,000 shaded pixels; the card takes 31 to 37 ms). Full bilinear without dither; non-mip-mapped 16-bit textures, mostly Gouraud-shaded and translucent 4444 |
