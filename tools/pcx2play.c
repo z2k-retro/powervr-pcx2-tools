@@ -361,6 +361,7 @@ main(int argc, char **argv)
     fr.camera        = regs[0x0f];
     fr.xclip         = regs[0x14];
     fr.bilinear      = regs[0x19];
+    fr.fastfog       = regs[0x1d];
     fr.fog_table     = &regs[0x80];
     pcxr_render(&fr, rgb, &res);
     W = (res.max_x + 1 > 640) ? res.max_x + 1 : 640;

@@ -122,6 +122,7 @@ render_and_save(const char *out, const char *ref)
     fr.camera        = regs[0x0f];
     fr.xclip         = regs[0x14];
     fr.bilinear      = regs[0x19];
+    fr.fastfog       = regs[0x1d];
     fr.fog_table     = pcx2_fog_rom;
     {
         struct timespec t0, t1;
