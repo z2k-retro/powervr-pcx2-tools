@@ -103,6 +103,7 @@ Builds before pcx-v0.3 stopped the emulated PC whenever the host had not finishe
 | Jedi Knight: Dark Forces II (demo) | Compared on the card: exact | |
 | Hardcore 4x4 (demo) | Compared on the card: 0–1 pixels | Shadow volumes and coloured fog |
 | Die by the Sword | Compared on the card: exact | |
+| Grand Slam Baseball (demo) | Compared on the card: exact | |
 | Interstate '76 Gold | Compared on the card: 0–1 pixels | Native PowerVR (SGL) renderer, one of several on the Gold disc |
 | Interstate '76 Nitro Pack | Compared on the card: 0–1 pixels | Direct3D (`-d3d`) |
 | Monday Night Football 98 demo | Compared on the card: exact | |
