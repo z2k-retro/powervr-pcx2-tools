@@ -21,10 +21,11 @@ What a PowerVR Series 1 PCX2 (as on the Matrox m3D) does, and how its Windows dr
 | --- | --- | --- |
 | A | [Registers](appendix-a-registers.md) | Register map, defaults, when drivers write each register |
 | B | [Scene formats](appendix-b-formats.md) | Tile list, plane words and instructions, fixed-point rules, TSP parameter words |
-| C | [Texture memory](appendix-c-textures.md) | Pixel addressing, banks, twiddling, mip-chain layout, texel formats, filtering |
+| C | [Texture memory](appendix-c-textures.md) | Pixel addressing, banks, twiddling, mip-chain layout, texel formats, filtering, mirroring under the filter |
 | D | [Built-in tables](appendix-d-tables.md) | Fog and divider ROM contents |
-| E | [Pixel output](appendix-e-output.md) | Frame-buffer writes, clipping, masking plane, formats, dither, fog, render times |
+| E | [Pixel output](appendix-e-output.md) | Frame-buffer writes, clipping, masking plane, formats, dither, fog, fast fog, render times |
 | F | [VxD interface](appendix-f-vxd.md) | Private IOCTLs, shared structures, notes on earlier analysis |
 | G | [PCXDUMP1 format](appendix-g-pcxdump.md) | The frame dump written by the 86Box device |
 | H | [Measuring and testing](appendix-h-workflow.md) | How each measurement was made, step by step |
 | I | [PCX1 differences](appendix-i-pcx1.md) | What changes for the PCX1, from source; not measured |
+| J | [Driver settings](appendix-j-driver-settings.md) | Registry, App Hints and `sglhw.ini` settings; which reach chip registers; the INF's per-program hints |

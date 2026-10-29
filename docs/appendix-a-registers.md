@@ -30,10 +30,10 @@ The VxD walks registers 0x00–0x17 on PCX1 and 0x00–0x1E on PCX2. "Init" mean
 | 0x15 | 0x054 | ABORTADDR | both | Init | 0 | Unknown |
 | 0x16 | 0x058 | GPPORT | both | Init | 0 | General-purpose port; reads 0xF616 at power-on (possibly board straps) |
 | 0x18 | 0x060 | IEEEFP | PCX2 | Init | — / 7 | Bit 0 IEEE floats; bit 1 edge scaling for perpendicular edges; bit 2 pointer concatenation |
-| 0x19 | 0x064 | BILINEAR | PCX2 | Init + Frame | — / 0 | Bits 0–1: 00 bilinear, 01 adaptive, 11 "linear mip-mapping", used as filtering off (user-mode default); bit 2 = SDRAM caching off |
+| 0x19 | 0x064 | BILINEAR | PCX2 | Init + Frame | — / 0 | Bits 0–1: 00 bilinear, 01 adaptive, 11 "linear mip-mapping", used as filtering off (user-mode default); 10 behaves exactly like 11 **(measured)**; bit 2 = SDRAM caching off. See Appendix C and, for the driver settings, Appendix J |
 | 0x1B | 0x06C | PCI21COMP | PCX2 | Init | — / 0 | Bit 0 clear = PCI 2.1 compliance on |
 | 0x1C | 0x070 | CLKSELECT | PCX2 | Init | — / 0 | Bits 0–2: SDRAM MEMCLK delay (000 = 1 PVRCLK) |
-| 0x1D | 0x074 | FASTFOG | PCX2 | Init + Frame | — / 0 | Bit 8 enable, bits 0–7 value (0x1FF when the FastFogON setting is used) |
+| 0x1D | 0x074 | FASTFOG | PCX2 | Init + Frame | — / 0 | Bit 8 enable, bits 0–7 fog-factor threshold: opaque pixels fogged at least that much are written as plain fog colour **(measured)**; see [Appendix E](appendix-e-output.md). 0x1FF when the `FastFogON` setting is used ([Appendix J](appendix-j-driver-settings.md)) |
 | 0x1E | 0x078 | POWERDOWN | PCX2 | Init | — / 1 | Bit 0 = internal RAM power-down enabled |
 | 0x7D–0x7F | 0x1F4 | MEMTEST_* | both | never | — | Memory test data/mode/result |
 | 0x080–0x0FF | 0x200 | FOG_TABLE | both | Init | FogTable | 128 entries, see Fog |

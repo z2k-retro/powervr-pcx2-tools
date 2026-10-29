@@ -54,6 +54,26 @@ Filtering works on 5-bit channels; a channel c becomes (c << 3) + 4 when expande
 | --- | --- | --- |
 | 0 | Bilinear | 2×2 bilinear within one mip level |
 | 1 | Adaptive bilinear | Bilinear on the two finest mip steps (level estimate below 2); blending between two mip levels beyond that **(measured)** |
+| 2 | Same as 3 | Identical to mode 3 on every pixel **(measured** on three frames, 2026-10-28). No driver setting produces it (Appendix J) |
 | 3 | Linear mip-mapping | One texel from each of two adjacent levels, blended; no bilinear |
 
 The level estimate comes from the squared 1/w and the mip scale in TSP word 2; see `texture_pixel()` in the renderer. Mirroring (word 0 bits 12:11) reflects every other repeat of the map; on 256×256 maps it acts as if the map were 128.
+
+## Mirroring under bilinear filtering (measured)
+
+Without bilinear filtering, a mirrored coordinate simply reflects every other repeat. With the filter on, the two directions behave differently.
+
+- **u (bit 12):** the second texel is u + 1 taken through the same mirroring, and the filter weight is inverted (`~uf`) wherever the coordinate is reflected. Exact on edited frames and in Flight Unlimited with adaptive bilinear.
+- **v (bit 11):** rows are handled in pairs, and the pair index and the low bit follow different rules. This was decoded from a stripe test texture: red alternated by row, green counted row pairs and blue alternated by column, so each output pixel shows which two rows the card blended and with what weight. For row v of a mirrored level, with `fbit` the level's repeat bit and `mask` its size − 1:
+
+```c
+lo = ((v + 2) & fbit) != 0;          /* the half the next pair lies in */
+s  = ((v ^ lo) + 1) ^ lo;            /* second row, counted with low bit flipped */
+p  = (v & fbit) ? ~(v >> 1) : (v >> 1);      /* pair mirrored by its own half */
+r0 = ((p << 1) | ((v & 1) ^ lo)) & mask;
+p  = (s & fbit) ? ~(s >> 1) : (s >> 1);
+r1 = ((p << 1) | ((s & 1) ^ lo)) & mask;
+if (lo) weight = ~weight & 31;
+```
+
+In the middle of a mirrored half, an odd row therefore pairs with the row below it, and an even row with the row three above. The last pair before each seam already behaves like the half after it. Mip levels use the same rule in level space (v, `fbit` and `mask` shifted down by the level). With this rule Turok's foliage matches the card exactly. The stripe test frames still differ by about 60 pixels, and mip-mapped edited frames by 160 to 280, all along seams. See `vmir_rows()` in the renderer.

@@ -58,6 +58,23 @@ colour = colour + (((fog_colour - colour) * f) >> 8)     /* per channel */
 
 `FOGCOL` bits 23:0 hold the fog colour as 0xRRGGBB.
 
+## Fast fog (PCX2, measured)
+
+`FASTFOG` (register 0x1D) is a PCX2 shortcut that no driver turns on by default (Appendix J). When bit 8 is set:
+
+```
+if (polygon is not translucent && f >= FASTFOG[7:0])
+    colour = fog_colour          /* written as is: no texture, shading or highlight */
+```
+
+- `f` is the same fog factor as above (the table value after `FOGAMOUNT`), so threshold 0 turns every opaque pixel into fog colour, and 0xFF affects only the farthest (f = 255).
+- It ignores both the polygon's fog-off bit (TSP word 0 bit 29) and `FOGCOL` bit 24. Direct3D games that fog per vertex and set the fog-off bit on every polygon, such as Die by the Sword, are therefore fast-fogged too.
+- Translucent polygons (TSP word 0 bit 10) are shaded and blended as normal. Shadows and overlays drawn translucent still appear over fast-fogged surfaces.
+- With bit 8 clear, the threshold has no effect.
+- The card renders faster with it: a Die by the Sword frame took 17.2 ms at threshold 0, against 19.6 ms normally.
+
+Measured on 24 edited frames from Die by the Sword, World Cup 98 and the SDK fog test, at thresholds 0, 0x40, 0x80 and 0xFF, with bit 8 clear, and with `FOGCOL` bit 24 clear. All match the renderer exactly (`texas()` in the renderer).
+
 ## Render time (measured)
 
 | Frame | Bits per pixel | Time from STARTRENDER to interrupt |
