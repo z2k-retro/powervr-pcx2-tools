@@ -24,6 +24,16 @@ if [ "$drv" != "vfio-pci" ]; then
 fi
 ls "$DUMPS"/frame_*.bin >/dev/null 2>&1 || { echo "No frame dumps in $DUMPS"; exit 1; }
 
+# 86Box never empties the dump folder, so frames from an earlier game can
+# still be there. Warn if the dumps were written more than 10 minutes apart.
+NEWEST=$(stat -c %Y "$DUMPS"/frame_*.bin | sort -n | tail -1)
+OLD=$(for f in "$DUMPS"/frame_*.bin; do if [ $((NEWEST - $(stat -c %Y "$f"))) -gt 600 ]; then basename "$f"; fi; done)
+if [ -n "$OLD" ]; then
+	echo "Warning: these dumps are older than the rest and may be from another run:"
+	echo "$OLD" | sed 's/^/  /'
+	echo "Empty $DUMPS before the next capture to keep one game per session."
+fi
+
 make -C "$ROOT" bin/pcx2play >/dev/null
 mkdir -p "$OUT"
 cp "$DUMPS"/frame_*.bin "$OUT"/ 2>/dev/null || true
