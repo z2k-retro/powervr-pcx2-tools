@@ -288,6 +288,17 @@ For features no captured game uses, real frames were edited (texture settings ch
 | A texture without mip-maps whose mip level field is non-zero | Differs where the level is 2 or more. No driver writes this combination |
 | An 8-bit texture with the 4444 flag set | The card draws white. No driver writes this combination |
 
+## Real hardware is stricter than the emulation
+
+The 86Box device accepts some register sequences that hang a real PCX2. The emulation deliberately does not reproduce these lock-ups, so software written or tested only against 86Box can still hang a real card. Each problem below has a simple fix on the driver's side, and the fix changes nothing in 86Box.
+
+| Sequence | Real PCX2 | 86Box | Fix |
+| --- | --- | --- | --- |
+| Writing texture memory (BAR1) while `TMEM_SETUP` and `TMEM_REFRESH` still hold their power-on values (0x377777FF and 0x700) | The whole machine hard-locks | Accepted | Program `TMEM_SETUP` and `TMEM_REFRESH` (Appendix A, "Init") before any BAR1 access, as both drivers' initialization does. Reading texture memory early also hangs: `pcx2probe --texmem` programs these registers first for that reason |
+| `INTMASK` = 2 with no interrupt handler installed, polling `INTSTATUS` for the end of render | The machine hard-locks at a random point after a few frames (frame 2 in one run, after frame 128 in another) | Never hangs | Leave `INTMASK` at 0 when polling. `INTSTATUS` bit 1 is still set at the end of each render with the interrupt masked, and reading it clears it |
+
+Both were reported in November 2026 by a developer testing a bare-metal DOS driver (DOS/4GW, no SGL) on a PCX2 rev 1 board in an Intel 430TX machine with an S3 Trio3D. The same driver's frames were bit-identical between that card and 86Box. The cause of the interrupt hang was not investigated. A likely one is the card raising its PCI interrupt with nothing installed to acknowledge it.
+
 ## Open questions for emulation
 
 - [x] What `REVISION` on the Matrox m3D: 1 (PCX2_002), read from the card 2026-10-17.

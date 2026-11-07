@@ -11,15 +11,15 @@ The VxD walks registers 0x00–0x17 on PCX1 and 0x00–0x1E on PCX2. "Init" mean
 | 0x01 | 0x004 | REVISION | both | read | — | PCX2: 1 = rev 002, 3 = rev 003; the Matrox m3D reads 1 |
 | 0x02 | 0x008 | SOFTRESET | both | pulse | — | Write 1 then 0, then about 1000 loop iterations; done at init and before every render |
 | 0x03 | 0x00C | INTSTATUS | both | read | — | Bit 1 = end of render; the ISR's read is the only acknowledge |
-| 0x04 | 0x010 | INTMASK | both | Init | 2 / 2 | Enables bit 1 |
+| 0x04 | 0x010 | INTMASK | both | Init | 2 / 2 | Enables bit 1. Only set it with an interrupt handler installed: polling `INTSTATUS` with the mask set hangs a real PCX2 after a few frames (the reference's "Real hardware is stricter than the emulation"). `INTSTATUS` bit 1 is set with the mask at 0 too |
 | 0x05 | 0x014 | STARTRENDER | both | strobe | — | VxD writes 0 to start the render |
 | 0x06 | 0x018 | FOGAMOUNT | both | Frame | 0 | Fog shift (SGL density 0–31); 0 when fog is off |
 | 0x07 | 0x01C | OBJECT_OFFSET | both | Frame | 0 | PCX1: physical address of the region/object-pointer buffer. PCX2: byte offset of that buffer inside the TLB-mapped ISP space, OR 1 |
 | 0x08 | 0x020 | PAGE_CTRL | both | Init + VxD per frame | 0 | Bits 0–7 = ISP buffer physical address >> 24; bits 8–9 = TLB page size (00 4 KB, 01 8 KB, 11 16 KB) |
 | 0x0A | 0x028 | ISP_BASE | both | Init | 0x00080000 | ISP overflow area, "bottom of the second bank" |
 | 0x0B | 0x02C | PREC_BASE | both | Init | 0 | TSP parameter area, "bottom of the first bank" of texture memory |
-| 0x0C | 0x030 | TMEM_SETUP | both | Init | 0x22212275 | 4 MB setting; 2 MB = 0x12212275, 1 MB = 0x02211275; power-on value 0x377777FF |
-| 0x0D | 0x034 | TMEM_REFRESH | both | Init | 0x480 | Texture SDRAM refresh; power-on value 0x700 |
+| 0x0C | 0x030 | TMEM_SETUP | both | Init | 0x22212275 | 4 MB setting; 2 MB = 0x12212275, 1 MB = 0x02211275; power-on value 0x377777FF. Program it (and `TMEM_REFRESH`) before any access to texture memory: a BAR1 write at the power-on values hard-locks a real PCX2 |
+| 0x0D | 0x034 | TMEM_REFRESH | both | Init | 0x480 | Texture SDRAM refresh; power-on value 0x700. See `TMEM_SETUP` |
 | 0x0E | 0x038 | FOGCOL | both | Frame | 0 | 0x01000000 \| R≪16 \| G≪8 \| B (bit 24 = fog enable, measured) |
 | 0x0F | 0x03C | CAMERA | both | Frame | 0 | "CFR scale"; drivers always write 0x3FF |
 | 0x10 | 0x040 | PACKMODE | both | Frame | 0 | Output format: 0 = 32 bpp, 1 = 24, 2 = 16 (565), 3 = 15 (555); bit 4 = dither |
