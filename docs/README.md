@@ -27,5 +27,5 @@ What a PowerVR Series 1 PCX2 (as on the Matrox m3D) does, and how its Windows dr
 | F | [VxD interface](appendix-f-vxd.md) | Private IOCTLs, shared structures, notes on earlier analysis |
 | G | [PCXDUMP1 format](appendix-g-pcxdump.md) | The frame dump written by the 86Box device |
 | H | [Measuring and testing](appendix-h-workflow.md) | How each measurement was made, step by step |
-| I | [PCX1 differences](appendix-i-pcx1.md) | What changes for the PCX1, from source; not measured |
+| I | [PCX1 differences](appendix-i-pcx1.md) | What changes for the PCX1, from source, plus a power-on dump of an Apocalypse 3D |
 | J | [Driver settings](appendix-j-driver-settings.md) | Registry, App Hints and `sglhw.ini` settings; which reach chip registers; the INF's per-program hints |
