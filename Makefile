@@ -11,7 +11,7 @@ all: bin/pcx2dump bin/pcx2replay bin/pcx2play bin/pcxsim
 bin:
 	mkdir -p bin
 
-bin/pcx2dump: tools/pcx2dump.c tools/pcx2pci.h | bin
+bin/pcx2dump: tools/pcx2dump.c tools/pcx2pci.h tools/pcxtables.h | bin
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ tools/pcx2dump.c
 
 bin/pcx2replay: tools/pcx2replay.c tools/pcx2pci.h | bin
