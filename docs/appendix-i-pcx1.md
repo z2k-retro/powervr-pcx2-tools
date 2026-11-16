@@ -17,7 +17,7 @@ The PCX1 (NEC µPD62010, PCI 1033:002A, driver type MIDAS4) is the first Series 
 
 ## Measured on an Apocalypse 3D
 
-A volunteer ran `pcx2dump` three times on 2026-11-16 on a VideoLogic Apocalypse 3D: once plain, once with `--masks`, and once with `--texmem`. The card had not been set up by any driver. Everything below comes from those dumps.
+A volunteer ran `pcx2dump` three times on 2026-11-16 on a VideoLogic Apocalypse 3D: once plain, once with `--masks`, and once with `--texmem`. The host was a Pentium MMX 180 running Slackware 14.2, with a Diamond Viper TNT (PCI) as the 2D card. The card had not been set up by any driver. Everything below comes from those dumps.
 
 **PCI.** The card is 1033:002A, revision 01, class 0x04 / subclass 0x80 (other multimedia). It has two 32-bit prefetchable memory BARs (BAR0 registers, BAR1 texture memory) and uses interrupt pin A. There is no option ROM and no capabilities list, as on the m3D.
 
@@ -46,7 +46,7 @@ A volunteer ran `pcx2dump` three times on 2026-11-16 on a VideoLogic Apocalypse 
 - **Host access to the divider table goes through the entries in order, like the PCX2's ROM.** A sweep upward from 0x200 reads every entry. Reads and writes at other addresses do not reach the entry asked for. After a full sweep, reading 0x203, 0x2C5 or 0x3FF returned entry 0x201's value, and 0x3FE returned entry 0x200's. The `--masks` writes aimed at 0x200 and 0x3FF changed only 0x3FE and 0x3FF. Writing the whole table in one sweep from 0x200, which is what the VxD does, is the only pattern known to work.
 - **The page table (0x100–0x17F) is there too:** 128 entries of 12 bits with random power-on values, the same as the PCX2. 0x180–0x1FF read 0. The PCX1 driver puts its region list in one contiguous DMA block, not in TLB-mapped pages, so what the PCX1 uses these entries for is still open.
 
-**Texture memory.** The `--texmem` run's report stops right after the memory registers were set (`TMEM_SETUP` 0x22212275, `TMEM_REFRESH` 0x480, `ARBMODE` 1), before the first pattern pass. Whether the machine hung on the first BAR1 access or the program stopped some other way is still to be confirmed. The values are not the obvious cause. The 4.1.1 VxD's register table gives the PCX1 the same `TMEM_SETUP` (0x22212275) and `TMEM_REFRESH` (0x480) as the PCX2, and `ARBMODE` 1, which is what `pcx2dump` wrote. At start-up the VxD also loads the divider and fog tables and the other "Init" registers before any texture access. `pcx2dump` skips those, and one of them may matter on PCX1.
+**Texture memory.** The `--texmem` run's report stops right after the memory registers were set (`TMEM_SETUP` 0x22212275, `TMEM_REFRESH` 0x480, `ARBMODE` 1), before the first pattern pass. The machine hung there, on the first BAR1 access. The values are not the obvious cause. The 4.1.1 VxD's register table gives the PCX1 the same `TMEM_SETUP` (0x22212275) and `TMEM_REFRESH` (0x480) as the PCX2, and `ARBMODE` 1, which is what `pcx2dump` wrote. At start-up the VxD also loads the divider and fog tables and the other "Init" registers before any texture access. `pcx2dump` skips those, and one of them may matter on PCX1.
 
 ## PCX1 plane words
 
