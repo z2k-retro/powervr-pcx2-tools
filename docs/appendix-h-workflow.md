@@ -13,7 +13,7 @@ sudo bin/pcx2dump --masks      # also: implemented bits of the harmless register
 sudo bin/pcx2dump --texmem     # also: set up and test all 4 MB of texture memory
 ```
 
-Run it with no VM using the card. It finds the first PCX1/PCX2 by PCI ID; `--dev DDDD:BB:DD.F` picks another. `--texmem` first programs the memory registers exactly as the driver does, because reading texture memory before that can hang the machine.
+Run it with no VM using the card. It finds the first PCX1/PCX2 by PCI ID; `--dev DDDD:BB:DD.F` picks another. `--texmem` first programs the memory registers exactly as the driver does, because reading texture memory before that can hang the machine. On a PCX1 it runs the driver's whole start-up sequence instead: the divider table, every start-up register (except `INTMASK`, left at 0), the fog table, and a soft reset. It then reports whether both tables read back. `--fullinit` does the same on a PCX2, and `--quickinit` forces the short sequence.
 
 ## 2. Trace the real driver: `scripts/win98vm.sh`
 

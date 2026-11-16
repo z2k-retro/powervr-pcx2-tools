@@ -14,7 +14,11 @@
  * --texmem first writes the memory/bus registers with the exact values and
  * order the 4.x VSGL.VXD uses at start-up (TMEM_SETUP, TMEM_REFRESH, ARBMODE,
  * PCI21COMP, CLKSELECT, POWERDOWN, then a SOFTRESET pulse), syncs everything
- * already saved to disk, and only then touches BAR1. A small chance of a
+ * already saved to disk, and only then touches BAR1. On a PCX1 (or with
+ * --fullinit) it instead runs the VxD's whole start-up sequence first:
+ * divider table (PCX1), every "Init" register, fog table, SOFTRESET, and
+ * reports whether the tables read back. --quickinit forces the short
+ * sequence. Texture memory on a PCX1 hung the machine after the short one. A small chance of a
  * host freeze remains; nothing on the card can be damaged by it.
  *
  * Output goes to a new folder pcx2dump-YYYYMMDD-HHMMSS/ :
@@ -37,6 +41,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "pcx2pci.h"
+#include "pcxtables.h"
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
@@ -225,8 +230,71 @@ pattern_pass(volatile uint32_t *tex, uint32_t seed, double *wr_mbs, double *rd_m
     return bad;
 }
 
+/* The VxD's whole start-up sequence (InitBoard in the 4.x VSGL.VXD), as far
+   as the chip is concerned: on PCX1 the divider table, then every "Init"
+   register of the register table in index order, then the fog table, then a
+   SOFTRESET pulse. One change: INTMASK is left at 0. The driver writes 2,
+   but no render is started here, and with no handler installed an enabled
+   interrupt can only cause trouble. The tables are then read back in one
+   upward sweep (the only order the divider table answers correctly). */
 static void
-texmem_test(const char *dev, volatile uint32_t *bar0, int is_pcx2)
+full_init(volatile uint32_t *bar0, int is_pcx2)
+{
+    static const struct { unsigned reg; uint32_t pcx1, pcx2; int pcx2_only; } init[] = {
+        { 0x04, 0x00000000, 0x00000000, 0 }, /* INTMASK (driver: 2) */
+        { 0x08, 0x00000000, 0x00000000, 0 }, /* PAGE_CTRL */
+        { 0x0a, 0x00080000, 0x00080000, 0 }, /* ISP_BASE */
+        { 0x0b, 0x00000000, 0x00000000, 0 }, /* PREC_BASE */
+        { 0x0c, 0x22212275, 0x22212275, 0 }, /* TMEM_SETUP */
+        { 0x0d, 0x00000480, 0x00000480, 0 }, /* TMEM_REFRESH */
+        { 0x11, 0x00000001, 0x0000000d, 0 }, /* ARBMODE */
+        { 0x14, 0x00000000, 0x00000000, 0 }, /* XCLIP */
+        { 0x15, 0x00000000, 0x00000000, 0 }, /* ABORTADDR */
+        { 0x16, 0x00000000, 0x00000000, 0 }, /* GPPORT */
+        { 0x18, 0x00000000, 0x00000007, 1 }, /* IEEEFP */
+        { 0x19, 0x00000000, 0x00000000, 1 }, /* BILINEAR */
+        { 0x1b, 0x00000000, 0x00000000, 1 }, /* PCI21COMP */
+        { 0x1c, 0x00000000, 0x00000000, 1 }, /* CLKSELECT */
+        { 0x1d, 0x00000000, 0x00000000, 1 }, /* FASTFOG */
+        { 0x1e, 0x00000000, 0x00000001, 1 }, /* POWERDOWN */
+    };
+    uint32_t bad;
+
+    out("\nFull start-up sequence (as the VxD's InitBoard, INTMASK left at 0)\n");
+    if (!is_pcx2) {
+        for (int i = 0; i < 512; i++)
+            bar0[0x200 + i] = pcx_reciprocal_table[i];
+        out("  Divider table written (512 entries, one sweep from 0x200)\n");
+    }
+    for (unsigned k = 0; k < sizeof(init) / sizeof(init[0]); k++) {
+        if (init[k].pcx2_only && !is_pcx2)
+            continue;
+        bar0[init[k].reg] = is_pcx2 ? init[k].pcx2 : init[k].pcx1;
+    }
+    out("  Init registers written\n");
+    for (int i = 0; i < 128; i++)
+        bar0[0x80 + i] = pcx_fog_table[i];
+    out("  Fog table written\n");
+    bar0[0x02] = 1;
+    bar0[0x02] = 0;
+    usleep(10000);
+    out("  SOFTRESET pulsed\n");
+
+    bad = 0;
+    for (int i = 0; i < 128; i++)
+        bad += bar0[0x80 + i] != pcx_fog_table[i];
+    out("  Fog table read back: %u of 128 entries differ\n", bad);
+    bad = 0;
+    for (int i = 0; i < 512; i++) {
+        uint32_t v = bar0[0x200 + i];
+        if (v != pcx_reciprocal_table[i] && bad++ < 4)
+            out("    divider [%03x] reads %08x, expected %08x\n", 0x200 + i, v, pcx_reciprocal_table[i]);
+    }
+    out("  Divider table read back in one sweep: %u of 512 entries differ\n", bad);
+}
+
+static void
+texmem_test(const char *dev, volatile uint32_t *bar0, int is_pcx2, int fullinit)
 {
     char               path[256];
     volatile uint32_t *tex;
@@ -240,18 +308,22 @@ texmem_test(const char *dev, volatile uint32_t *bar0, int is_pcx2)
     out("  Before: TMEM_SETUP=%08x TMEM_REFRESH=%08x ARBMODE=%08x CLKSELECT=%08x POWERDOWN=%08x\n",
         bar0[0x0c], bar0[0x0d], bar0[0x11], bar0[0x1c], bar0[0x1e]);
 
-    /* The VxD writes its default table in register-index order. */
-    bar0[0x0c] = 0x22212275;                 /* TMEM_SETUP: 4 MB */
-    bar0[0x0d] = 0x00000480;                 /* TMEM_REFRESH */
-    bar0[0x11] = is_pcx2 ? 0x0000000d : 1;   /* ARBMODE */
-    if (is_pcx2) {
-        bar0[0x1b] = 0x00000000;             /* PCI21COMP */
-        bar0[0x1c] = 0x00000000;             /* CLKSELECT */
-        bar0[0x1e] = 0x00000001;             /* POWERDOWN */
+    if (fullinit)
+        full_init(bar0, is_pcx2);
+    else {
+        /* The VxD writes its default table in register-index order. */
+        bar0[0x0c] = 0x22212275;                 /* TMEM_SETUP: 4 MB */
+        bar0[0x0d] = 0x00000480;                 /* TMEM_REFRESH */
+        bar0[0x11] = is_pcx2 ? 0x0000000d : 1;   /* ARBMODE */
+        if (is_pcx2) {
+            bar0[0x1b] = 0x00000000;             /* PCI21COMP */
+            bar0[0x1c] = 0x00000000;             /* CLKSELECT */
+            bar0[0x1e] = 0x00000001;             /* POWERDOWN */
+        }
+        bar0[0x02] = 1;                          /* SOFTRESET pulse, as at the end of InitBoard */
+        bar0[0x02] = 0;
+        usleep(10000);
     }
-    bar0[0x02] = 1;                          /* SOFTRESET pulse, as at the end of InitBoard */
-    bar0[0x02] = 0;
-    usleep(10000);
     out("  After:  TMEM_SETUP=%08x TMEM_REFRESH=%08x ARBMODE=%08x CLKSELECT=%08x POWERDOWN=%08x\n",
         bar0[0x0c], bar0[0x0d], bar0[0x11], bar0[0x1c], bar0[0x1e]);
 
@@ -318,6 +390,7 @@ main(int argc, char **argv)
     int                masks = 0;
     int                texmem = 0;
     int                assume_yes = 0;
+    int                fullinit   = -1; /* default: on for PCX1 */
     char               dir[64];
     char               path[256];
     char               drv[256] = "";
@@ -332,12 +405,16 @@ main(int argc, char **argv)
             masks = 1;
         else if (!strcmp(argv[i], "--texmem"))
             texmem = 1;
+        else if (!strcmp(argv[i], "--fullinit"))
+            fullinit = 1;
+        else if (!strcmp(argv[i], "--quickinit"))
+            fullinit = 0;
         else if (!strcmp(argv[i], "--yes"))
             assume_yes = 1;
         else if (!strcmp(argv[i], "--dev") && i + 1 < argc)
             dev = argv[++i];
         else {
-            fprintf(stderr, "usage: %s [--masks] [--texmem [--yes]] [--dev DDDD:BB:DD.F]\n", argv[0]);
+            fprintf(stderr, "usage: %s [--masks] [--texmem [--fullinit|--quickinit] [--yes]] [--dev DDDD:BB:DD.F]\n", argv[0]);
             return 1;
         }
     }
@@ -499,7 +576,7 @@ main(int argc, char **argv)
             }
         }
         if (texmem)
-            texmem_test(dev, bar0, is_pcx2);
+            texmem_test(dev, bar0, is_pcx2, fullinit < 0 ? !is_pcx2 : fullinit);
     }
 
     munmap((void *) bar0, 0x1000);
