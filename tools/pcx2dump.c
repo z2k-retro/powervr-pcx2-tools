@@ -42,6 +42,10 @@
 #include <stdio.h>
 #include "pcx2pci.h"
 #include "pcxtables.h"
+
+#ifndef PCX2DUMP_VERSION
+#define PCX2DUMP_VERSION "(unknown version)"
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
@@ -440,7 +444,7 @@ main(int argc, char **argv)
     snprintf(path, sizeof(path), "%s/report.txt", dir);
     report = fopen(path, "w");
 
-    out("pcx2dump: device %s, output %s/\n", dev, dir);
+    out("pcx2dump %s: device %s, output %s/\n", PCX2DUMP_VERSION, dev, dir);
     snprintf(path, sizeof(path), "%s/%s/driver", sysfs_base(), dev);
     if (readlink(path, drv, sizeof(drv) - 1) > 0)
         out("Bound driver: %s (fine, as long as QEMU is not running)\n", strrchr(drv, '/') + 1);
@@ -568,10 +572,10 @@ main(int argc, char **argv)
             char ans[16] = "";
             printf("\nThe texture memory test writes the card's memory registers and then all 4 MB.\n"
                    "Small chance of a host freeze (reset button; no damage). Everything above is\n"
-                   "already saved. Close other work first. Type yes to continue: ");
+                   "already saved. Close other work first. Type yes (the whole word) to continue: ");
             fflush(stdout);
             if (!fgets(ans, sizeof(ans), stdin) || strncmp(ans, "yes", 3) != 0) {
-                out("Texture memory test skipped.\n");
+                out("Texture memory test skipped (the answer was not \"yes\"; --yes skips the question).\n");
                 texmem = 0;
             }
         }

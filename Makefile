@@ -12,7 +12,7 @@ bin:
 	mkdir -p bin
 
 bin/pcx2dump: tools/pcx2dump.c tools/pcx2pci.h tools/pcxtables.h | bin
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ tools/pcx2dump.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DPCX2DUMP_VERSION='"$(shell git describe --always --dirty 2>/dev/null || echo unknown)"' -o $@ tools/pcx2dump.c
 
 bin/pcx2replay: tools/pcx2replay.c tools/pcx2pci.h | bin
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ tools/pcx2replay.c
